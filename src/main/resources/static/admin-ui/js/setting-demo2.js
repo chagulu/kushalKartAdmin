@@ -72,7 +72,7 @@ $('.changeBackgroundColor').on('click', function(){
 function customCheckColor(){
 	var logoHeader = $('.logo-header').attr('data-background-color');
 	if (logoHeader !== "white") {
-		$('.logo-header .navbar-brand').attr('src', '..//admin-ui/img/kaiadmin/logo_light.svg');
+		$('.logo-header .navbar-brand').attr('src', '..//admin-ui/img/kaiadmin/kushalKartLogo.png');
 	} else {
 		$('.logo-header .navbar-brand').attr('src', '..//admin-ui/img/kaiadmin/logo_dark.svg');
 	}

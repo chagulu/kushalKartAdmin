@@ -74,7 +74,7 @@ function customCheckColor() {
   if (logoHeader !== "white") {
     $(".logo-header .navbar-brand").attr("src", "/admin-ui/img/kaiadmin/kushalKartLogo.png");
   } else {
-    $(".logo-header .navbar-brand").attr("src", "/admin-ui/img/kaiadmin/kushalKartLogo.png");
+    $(".logo-header .navbar-brand").attr("src", "/admin-ui/img/kaiadmin/logo_dark.svg");
   }
 }
 

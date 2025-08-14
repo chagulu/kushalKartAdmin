@@ -11,4 +11,9 @@ public class DashboardViewController {
         // Thymeleaf looks for /templates/dashboard.html
         return "fragments/dashboard";
     }
+
+    @GetMapping("/booking-listing")
+    public String bookingListing() {
+        return "fragments/bookingListing"; // maps to templates/bookingListing.html
+    }
 }

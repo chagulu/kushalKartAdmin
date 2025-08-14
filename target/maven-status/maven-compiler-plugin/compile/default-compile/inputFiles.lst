@@ -5,6 +5,8 @@
 /Users/basantaswain/kushalKartAdmin/src/main/java/com/kushalkart/controller/PasswordHashController.java
 /Users/basantaswain/kushalKartAdmin/src/main/java/com/kushalkart/controller/WorkerController.java
 /Users/basantaswain/kushalKartAdmin/src/main/java/com/kushalkart/controller/WorkerKycController.java
+/Users/basantaswain/kushalKartAdmin/src/main/java/com/kushalkart/controller/adminView/DashboardViewController.java
+/Users/basantaswain/kushalKartAdmin/src/main/java/com/kushalkart/controller/adminView/LoginViewController.java
 /Users/basantaswain/kushalKartAdmin/src/main/java/com/kushalkart/dto/AdminUserDto.java
 /Users/basantaswain/kushalKartAdmin/src/main/java/com/kushalkart/dto/BookingResponse.java
 /Users/basantaswain/kushalKartAdmin/src/main/java/com/kushalkart/dto/LoginRequest.java

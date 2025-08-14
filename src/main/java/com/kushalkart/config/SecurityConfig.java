@@ -1,7 +1,7 @@
 package com.kushalkart.config;
 
-import com.kushalkart.service.AdminUserDetailsService;
 import com.kushalkart.filter.JwtAuthFilter;
+import com.kushalkart.service.AdminUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -49,11 +49,9 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
-                    "/admin/login",
-                    "/admin/superadmin/hash"
-                    
+                    "/dashboard",
+                    "/admin/login", "/admin-ui/**", "/", "/favicon.ico"
                 ).permitAll()
-                // All other endpoints, including /worker/register, require authentication
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

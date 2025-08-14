@@ -1,5 +1,3 @@
-// auth.js
-
 // ===== Storage Keys =====
 const TOKEN_KEY = 'auth_token';
 const USER_KEY = 'auth_user';
@@ -33,7 +31,6 @@ function clearAuth() {
 }
 
 // ===== Check if JWT token is expired =====
-// Very basic check — it decodes JWT payload and compares exp timestamp
 function isTokenExpired(token) {
     if (!token) return true;
     try {
@@ -49,7 +46,7 @@ function isTokenExpired(token) {
 }
 
 // ===== Add token to fetch request headers =====
-function authorizedFetch(url, options = {}) {
+function authFetch(url, options = {}) {
     const token = getToken();
     if (!options.headers) options.headers = {};
     if (token && !isTokenExpired(token)) {

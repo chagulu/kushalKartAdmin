@@ -5,7 +5,7 @@
     <title>Booking Listing</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Kaiadmin CSS -->
+    <!-- Kaiadmin & Bootstrap CSS -->
     <link rel="stylesheet" href="/admin-ui/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/admin-ui/css/kaiadmin.min.css"/>
 </head>
@@ -59,7 +59,7 @@
                 </div>
             </div>
 
-            <!-- Table -->
+            <!-- Booking Table -->
             <div class="table-responsive">
                 <table class="table table-striped table-hover">
                     <thead class="thead-light">
@@ -90,13 +90,25 @@
     </div>
 </div>
 
-<!-- Scripts -->
+<!-- Script Order is Critical -->
+
+<!-- Core jQuery -->
 <script src="/admin-ui/js/core/jquery-3.7.1.min.js"></script>
+<script src="/admin-ui/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
 <script src="/admin-ui/js/core/popper.min.js"></script>
 <script src="/admin-ui/js/core/bootstrap.min.js"></script>
 <script src="/admin-ui/js/kaiadmin.min.js"></script>
+
+<!-- Must be loaded BEFORE inline script -->
 <script src="/admin-ui/js/auth.js"></script>
 
+<!-- Your inline script -->
+<script>
+   fetchBookings();
+</script>
+
+
+<!-- Booking Listing Logic -->
 <script>
     const rows = document.getElementById('rows');
     const pageInfo = document.getElementById('pageInfo');
@@ -155,8 +167,9 @@
         if (!last) { page++; fetchBookings(); }
     });
 
-    // On page load
+    // Initial load
     fetchBookings();
 </script>
+
 </body>
 </html>

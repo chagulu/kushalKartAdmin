@@ -7,7 +7,6 @@ import com.kushalkart.service.MyUserDetailsService;
 import com.kushalkart.model.CustomUserDetails;
 import com.kushalkart.entity.User;
 import com.kushalkart.repository.UserRepository;
-
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.security.SignatureException;
@@ -15,7 +14,6 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,7 +23,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -62,11 +59,18 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         jwt = authHeader.substring(7);
 
         try {
+            System.out.println("Checking blacklist for token: " + jwt + " => " + jwtService.isTokenBlacklisted(jwt));
+
+            // === Blacklist check ===
+            if (jwtService.isTokenBlacklisted(jwt)) {
+                handleJwtException(response, "JWT token has been revoked (logout)", "TOKEN_REVOKED", HttpStatus.UNAUTHORIZED);
+                return;
+            }
+
             username = jwtService.extractUsername(jwt);
 
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 String role = jwtService.extractClaim(jwt, claims -> claims.get("role", String.class));
-
                 UserDetails userDetails;
 
                 if ("SUPER_ADMIN".equals(role) || "ADMIN".equals(role)) {
@@ -102,7 +106,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         }
     }
 
-    private void handleJwtException(HttpServletResponse response, String message, String errorCode, HttpStatus status) 
+    private void handleJwtException(HttpServletResponse response, String message, String errorCode, HttpStatus status)
             throws IOException {
         response.setStatus(status.value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
@@ -117,7 +121,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonResponse = objectMapper.writeValueAsString(errorResponse);
-        
+
         response.getWriter().write(jsonResponse);
         response.getWriter().flush();
     }

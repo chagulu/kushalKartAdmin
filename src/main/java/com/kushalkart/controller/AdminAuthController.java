@@ -38,26 +38,23 @@ public class AdminAuthController {
         return ResponseEntity.ok(new LoginResponse(token, user));
     }
 
-    // DTO Classes (you can move them to separate files if preferred)
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(@RequestParam("token") String token) {
+        jwtService.blacklistToken(token);
+        return ResponseEntity.ok(new ApiResponse(true, "Logged out successfully"));
+    }
+
+    // DTO Classes (can be moved to separate files)
+
     public static class LoginRequest {
         private String username;
         private String password;
 
-        public String getUsername() {
-            return username;
-        }
+        public String getUsername() { return username; }
+        public void setUsername(String username) { this.username = username; }
 
-        public void setUsername(String username) {
-            this.username = username;
-        }
-
-        public String getPassword() {
-            return password;
-        }
-
-        public void setPassword(String password) {
-            this.password = password;
-        }
+        public String getPassword() { return password; }
+        public void setPassword(String password) { this.password = password; }
     }
 
     public static class LoginResponse {
@@ -69,12 +66,20 @@ public class AdminAuthController {
             this.user = user;
         }
 
-        public String getToken() {
-            return token;
+        public String getToken() { return token; }
+        public AdminUser getUser() { return user; }
+    }
+
+    public static class ApiResponse {
+        private boolean success;
+        private String message;
+
+        public ApiResponse(boolean success, String message) {
+            this.success = success;
+            this.message = message;
         }
 
-        public AdminUser getUser() {
-            return user;
-        }
+        public boolean isSuccess() { return success; }
+        public String getMessage() { return message; }
     }
 }

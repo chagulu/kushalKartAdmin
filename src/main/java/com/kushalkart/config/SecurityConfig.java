@@ -50,7 +50,8 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
                     "/dashboard",
-                    "/admin/login", 
+                    "/admin/login",
+                    "/admin/logout",  
                     "/booking-listing", 
                     "/admin-ui/**", 
                     "/", 

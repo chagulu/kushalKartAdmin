@@ -1,174 +1,228 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
-    <title>Booking Listing</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Kaiadmin - Bootstrap 5 Admin Dashboard</title>
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
+  <link rel="icon" href="/admin-ui/img/kaiadmin/favicon.ico" type="image/x-icon" />
 
-    <!-- Kaiadmin & Bootstrap CSS -->
-    <link rel="stylesheet" href="/admin-ui/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/admin-ui/css/kaiadmin.min.css"/>
+  <!-- Fonts and icons -->
+  <script src="/admin-ui/js/plugin/webfont/webfont.min.js"></script>
+  <script>
+    WebFont.load({
+      google: { families: ["Public Sans:300,400,500,600,700"] },
+      custom: {
+        families: ["Font Awesome 5 Solid","Font Awesome 5 Regular","Font Awesome 5 Brands","simple-line-icons"],
+        urls: ["/admin-ui/css/fonts.min.css"],
+      },
+      active: function () {
+        sessionStorage.fonts = true;
+      },
+    });
+  </script>
+
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="/admin-ui/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/admin-ui/css/plugins.min.css" />
+  <link rel="stylesheet" href="/admin-ui/css/kaiadmin.min.css" />
+  <link rel="stylesheet" href="/admin-ui/css/demo.css" />
 </head>
 <body>
 <div class="wrapper">
 
-    <!-- Sidebar -->
-    <div th:replace="fragments/sidebar :: sidebar"></div>
+  <!-- Sidebar Include -->
+  <div th:replace="fragments/sidebar :: sidebar"></div>
 
-    <!-- Main Panel -->
-    <div class="main-panel">
+  <!-- Main Panel -->
+  <div class="main-panel">
 
-        <!-- Navbar -->
-        <div th:replace="fragments/navbar :: navbar"></div>
+    <!-- Main Header -->
+    <div class="main-header">
+      <div class="main-header-logo">
+        <!-- Logo Header -->
+        <div class="logo-header" data-background-color="dark">
+          <a href="index.html" class="logo">
+            <img src="/admin-ui/img/kaiadmin/kushalkart.png" alt="Kushal Kart Logo" class="navbar-brand" height="20" />
+          </a>
+          <div class="nav-toggle">
+            <button class="btn btn-toggle toggle-sidebar">
+              <i class="gg-menu-right"></i>
+            </button>
+            <button class="btn btn-toggle sidenav-toggler">
+              <i class="gg-menu-left"></i>
+            </button>
+          </div>
+          <button class="topbar-toggler more">
+            <i class="gg-more-vertical"></i>
+          </button>
+        </div>
+        <!-- End Logo Header -->
+      </div>
 
-        <!-- Page Content -->
-        <div class="container-fluid">
-            <h4 class="page-title">Booking Listing</h4>
+      <!-- Navbar Include -->
+      <div th:replace="fragments/navbar :: navbar"></div>
+    </div>
+    <!-- End Main Header -->
 
-            <!-- Filters -->
-            <div class="row mb-3">
-                <div class="col-md-2">
-                    <select class="form-control" id="status">
-                        <option value="">All Status</option>
-                        <option>PENDING</option>
-                        <option>CONFIRMED</option>
-                        <option>COMPLETED</option>
-                        <option>CANCELLED</option>
-                    </select>
-                </div>
+    <!-- Page Content -->
+    <div class="container">
+      <div class="page-inner">
 
-                <div class="col-md-2">
-                    <select class="form-control" id="paymentStatus">
-                        <option value="">All Payments</option>
-                        <option>PENDING</option>
-                        <option>PAID</option>
-                        <option>FAILED</option>
-                    </select>
-                </div>
-
-                <div class="col-md-2">
-                    <input class="form-control" id="consumerId" type="number" placeholder="Consumer ID" />
-                </div>
-
-                <div class="col-md-2">
-                    <input class="form-control" id="workerId" type="number" placeholder="Worker ID" />
-                </div>
-
-                <div class="col-md-2">
-                    <button class="btn btn-primary w-100" id="applyFilters">Apply</button>
-                </div>
-            </div>
-
-            <!-- Booking Table -->
-            <div class="table-responsive">
-                <table class="table table-striped table-hover">
-                    <thead class="thead-light">
-                    <tr>
-                        <th>ID</th>
-                        <th>Consumer</th>
-                        <th>Worker</th>
-                        <th>Status</th>
-                        <th>Payment</th>
-                        <th>Amount</th>
-                        <th>Scheduled</th>
-                    </tr>
-                    </thead>
-                    <tbody id="rows"></tbody>
-                </table>
-            </div>
-
-            <!-- Pager -->
-            <div class="d-flex align-items-center gap-2 mt-3">
-                <button class="btn btn-secondary" id="prev">Prev</button>
-                <span id="pageInfo" class="mx-2"></span>
-                <button class="btn btn-secondary" id="next">Next</button>
-            </div>
+        <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
+          <div>
+            <h3 class="fw-bold mb-3">Booking Listing</h3>
+            <h6 class="op-7 mb-2">Manage Service Bookings & Payments</h6>
+          </div>
+          <div class="ms-md-auto py-2">
+            <!-- Optional controls/buttons -->
+          </div>
         </div>
 
-        <!-- Footer -->
-        <div th:replace="fragments/footer :: footer"></div>
+        <!-- Filters -->
+        <div class="row mb-3">
+          <div class="col-md-2">
+            <select class="form-control" id="status">
+              <option value="">All Status</option>
+              <option>PENDING</option>
+              <option>CONFIRMED</option>
+              <option>COMPLETED</option>
+              <option>CANCELLED</option>
+            </select>
+          </div>
+
+          <div class="col-md-2">
+            <select class="form-control" id="paymentStatus">
+              <option value="">All Payments</option>
+              <option>PENDING</option>
+              <option>PAID</option>
+              <option>FAILED</option>
+            </select>
+          </div>
+
+          <div class="col-md-2">
+            <input class="form-control" id="consumerId" type="number" placeholder="Consumer ID" />
+          </div>
+
+          <div class="col-md-2">
+            <input class="form-control" id="workerId" type="number" placeholder="Worker ID" />
+          </div>
+
+          <div class="col-md-2">
+            <button class="btn btn-primary w-100" id="applyFilters">Apply</button>
+          </div>
+        </div>
+
+        <!-- Booking Table -->
+        <div class="table-responsive">
+          <table class="table table-striped table-hover">
+            <thead class="thead-light">
+              <tr>
+                <th>ID</th>
+                <th>Consumer</th>
+                <th>Worker</th>
+                <th>Status</th>
+                <th>Payment</th>
+                <th>Amount</th>
+                <th>Scheduled</th>
+              </tr>
+            </thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+
+        <!-- Pager -->
+        <div class="d-flex align-items-center gap-2 mt-3">
+          <button class="btn btn-secondary" id="prev">Prev</button>
+          <span id="pageInfo" class="mx-2"></span>
+          <button class="btn btn-secondary" id="next">Next</button>
+        </div>
+
+      </div>
     </div>
+
+    <!-- Footer -->
+    <div th:replace="fragments/footer :: footer"></div>
+
+  </div>
 </div>
 
-<!-- Script Order is Critical -->
-
-<!-- Core jQuery -->
+<!-- Scripts -->
 <script src="/admin-ui/js/core/jquery-3.7.1.min.js"></script>
 <script src="/admin-ui/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
 <script src="/admin-ui/js/core/popper.min.js"></script>
 <script src="/admin-ui/js/core/bootstrap.min.js"></script>
 <script src="/admin-ui/js/kaiadmin.min.js"></script>
-
-<!-- Must be loaded BEFORE inline script -->
 <script src="/admin-ui/js/auth.js"></script>
 
-<!-- Your inline script -->
 <script>
-   fetchBookings();
-</script>
+  const rows = document.getElementById('rows');
+  const pageInfo = document.getElementById('pageInfo');
+  const statusEl = document.getElementById('status');
+  const paymentStatus = document.getElementById('paymentStatus');
+  const consumerId = document.getElementById('consumerId');
+  const workerId = document.getElementById('workerId');
 
+  let page = 0, size = 10, last = false;
 
-<!-- Booking Listing Logic -->
-<script>
-    const rows = document.getElementById('rows');
-    const pageInfo = document.getElementById('pageInfo');
-    const statusEl = document.getElementById('status');
-    const paymentStatusEl = document.getElementById('paymentStatus');
-    const consumerIdEl = document.getElementById('consumerId');
-    const workerIdEl = document.getElementById('workerId');
+  async function fetchBookings() {
+    const params = new URLSearchParams();
+    params.set('page', page);
+    params.set('size', size);
+    if (statusEl.value) params.set('status', statusEl.value);
+    if (paymentStatus.value) params.set('paymentStatus', paymentStatus.value);
+    if (consumerId.value) params.set('consumerId', consumerId.value);
+    if (workerId.value) params.set('workerId', workerId.value);
 
-    let page = 0, size = 10, last = false;
+    const res = await authFetch(`/admin/bookings?${params.toString()}`, { method: "GET" });
+    if (!res) return;
 
-    async function fetchBookings() {
-        const params = new URLSearchParams();
-        params.set('page', page);
-        params.set('size', size);
-        if (statusEl.value) params.set('status', statusEl.value);
-        if (paymentStatusEl.value) params.set('paymentStatus', paymentStatusEl.value);
-        if (consumerIdEl.value) params.set('consumerId', consumerIdEl.value);
-        if (workerIdEl.value) params.set('workerId', workerIdEl.value);
+    const data = await res.json();
+    const pageData = data.data || data;
 
-        const res = await authFetch(`/admin/bookings?${params.toString()}`, { method: 'GET' });
-        if (!res) return;
-
-        const data = await res.json();
-        const pageData = data.data || data;
-
-        rows.innerHTML = '';
-        (pageData.content || []).forEach(b => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>${b.id}</td>
-                <td>${b.consumerId}</td>
-                <td>${b.workerId}</td>
-                <td>${b.status}</td>
-                <td>${b.paymentStatus}</td>
-                <td>${b.amount ?? ''}</td>
-                <td>${b.scheduledTime ?? ''}</td>
-            `;
-            rows.appendChild(tr);
-        });
-
-        const current = (pageData.number ?? page) + 1;
-        const totalPages = pageData.totalPages ?? current;
-        const totalElements = pageData.totalElements ?? (pageData.content?.length || 0);
-        pageInfo.textContent = `Page ${current} of ${totalPages} • ${totalElements} results`;
-
-        last = pageData.last ?? (current >= totalPages);
-    }
-
-    document.getElementById('applyFilters').addEventListener('click', () => {
-        page = 0; fetchBookings();
-    });
-    document.getElementById('prev').addEventListener('click', () => {
-        if (page > 0) { page--; fetchBookings(); }
-    });
-    document.getElementById('next').addEventListener('click', () => {
-        if (!last) { page++; fetchBookings(); }
+    rows.innerHTML = "";
+    pageData.content.forEach(b => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${b.id}</td>
+        <td>${b.consumerId}</td>
+        <td>${b.workerId}</td>
+        <td>${b.status}</td>
+        <td>${b.paymentStatus}</td>
+        <td>${b.amount ?? ""}</td>
+        <td>${b.scheduledTime ?? ""}</td>
+      `;
+      rows.appendChild(tr);
     });
 
-    // Initial load
+    const current = (pageData.number ?? page) + 1;
+    const totalPages = pageData.totalPages ?? current;
+    const totalElements = pageData.totalElements ?? (pageData.content ? pageData.content.length : 0);
+    pageInfo.textContent = `Page ${current} of ${totalPages} • ${totalElements} results`;
+
+    last = pageData.last ?? (current >= totalPages);
+  }
+
+  document.getElementById("applyFilters").addEventListener("click", () => {
+    page = 0;
     fetchBookings();
+  });
+
+  document.getElementById("prev").addEventListener("click", () => {
+    if (page > 0) {
+      page--;
+      fetchBookings();
+    }
+  });
+
+  document.getElementById("next").addEventListener("click", () => {
+    if (!last) {
+      page++;
+      fetchBookings();
+    }
+  });
+
+  // Initial fetch on page load
+  fetchBookings();
 </script>
 
 </body>

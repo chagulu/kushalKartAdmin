@@ -9,12 +9,8 @@ function getToken() {
 
 // ===== Save token & user info =====
 function saveAuth(token, user) {
-    if (token) {
-        localStorage.setItem(TOKEN_KEY, token);
-    }
-    if (user) {
-        localStorage.setItem(USER_KEY, JSON.stringify(user));
-    }
+    if (token) localStorage.setItem(TOKEN_KEY, token);
+    if (user) localStorage.setItem(USER_KEY, JSON.stringify(user));
 }
 
 // ===== Get user info from localStorage =====
@@ -36,29 +32,44 @@ function isTokenExpired(token) {
         const payloadBase64 = token.split('.')[1];
         const decoded = JSON.parse(atob(payloadBase64));
         if (!decoded.exp) return true;
-        const currentTimeSec = Math.floor(Date.now() / 1000);
-        return decoded.exp < currentTimeSec;
-    } catch (err) {
-        console.error("Token decode error:", err);
+        return decoded.exp < Math.floor(Date.now() / 1000);
+    } catch {
         return true;
     }
 }
 
-// ===== Add token to fetch request headers and handle token expiry redirects =====
+// ===== Fetch wrapper with JWT =====
 function authFetch(url, options = {}) {
     const token = getToken();
     if (!options.headers) options.headers = {};
     if (token && !isTokenExpired(token)) {
-        options.headers['Authorization'] = 'Bearer ' + token;
+        options.headers['Authorization'] = `Bearer ${token}`;
     }
-
     return fetch(url, options).then(response => {
         if (response.status === 403) {
-            // Token may be expired or unauthorized — redirect to login page
             clearAuth();
-            window.location.href = '/login.html';  // Adjust to your login page path
-            return Promise.reject(new Error('Unauthorized - Redirecting to login'));
+            window.location.href = '/login.html';
+            return Promise.reject(new Error('Unauthorized'));
         }
         return response;
     });
 }
+
+// ===== Global logout function =====
+window.logout = function() {
+    const token = getToken();
+
+    if (!token) {
+        clearAuth();
+        window.location.href = '/login.html';
+        return;
+    }
+
+    // Optional API call to invalidate token server-side
+    authFetch('/api/auth/logout', { method: 'POST' })
+        .catch(err => console.warn('Logout API failed or not implemented:', err))
+        .finally(() => {
+            clearAuth();
+            window.location.href = '/login.html';
+        });
+};

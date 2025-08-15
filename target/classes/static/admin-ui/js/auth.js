@@ -13,7 +13,6 @@ function saveAuth(token, user) {
         localStorage.setItem(TOKEN_KEY, token);
     }
     if (user) {
-        // store as JSON string
         localStorage.setItem(USER_KEY, JSON.stringify(user));
     }
 }
@@ -45,12 +44,21 @@ function isTokenExpired(token) {
     }
 }
 
-// ===== Add token to fetch request headers =====
+// ===== Add token to fetch request headers and handle token expiry redirects =====
 function authFetch(url, options = {}) {
     const token = getToken();
     if (!options.headers) options.headers = {};
     if (token && !isTokenExpired(token)) {
         options.headers['Authorization'] = 'Bearer ' + token;
     }
-    return fetch(url, options);
+
+    return fetch(url, options).then(response => {
+        if (response.status === 403) {
+            // Token may be expired or unauthorized — redirect to login page
+            clearAuth();
+            window.location.href = '/login.html';  // Adjust to your login page path
+            return Promise.reject(new Error('Unauthorized - Redirecting to login'));
+        }
+        return response;
+    });
 }

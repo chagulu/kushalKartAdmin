@@ -47,6 +47,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
+        
+
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
         final String username;
@@ -59,10 +61,10 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         jwt = authHeader.substring(7);
 
         try {
-            System.out.println("Checking blacklist for token: " + jwt + " => " + jwtService.isTokenBlacklisted(jwt));
+            
 
-            // === Blacklist check ===
             if (jwtService.isTokenBlacklisted(jwt)) {
+                
                 handleJwtException(response, "JWT token has been revoked (logout)", "TOKEN_REVOKED", HttpStatus.UNAUTHORIZED);
                 return;
             }
@@ -93,16 +95,12 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         } catch (ExpiredJwtException e) {
             handleJwtException(response, "JWT token has expired", "TOKEN_EXPIRED", HttpStatus.UNAUTHORIZED);
-            return;
         } catch (SignatureException e) {
             handleJwtException(response, "JWT signature is invalid", "INVALID_SIGNATURE", HttpStatus.FORBIDDEN);
-            return;
         } catch (MalformedJwtException e) {
             handleJwtException(response, "JWT token is malformed", "MALFORMED_TOKEN", HttpStatus.BAD_REQUEST);
-            return;
         } catch (Exception e) {
             handleJwtException(response, "JWT authentication failed", "AUTH_FAILED", HttpStatus.UNAUTHORIZED);
-            return;
         }
     }
 

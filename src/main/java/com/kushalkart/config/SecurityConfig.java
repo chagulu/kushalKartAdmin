@@ -34,7 +34,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public DaoAuthenticationProvider daoAuthenticationProvider() {
+    public DaoAuthenticationProvider daoAuthenticationProvider(){
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(userDetailsService);
         provider.setPasswordEncoder(passwordEncoder());
@@ -51,14 +51,15 @@ public class SecurityConfig {
                 .requestMatchers(
                     "/dashboard",
                     "/admin/login",
-                    "/admin/logout",  
-                    "/booking-listing", 
-                    "/admin-ui/**", 
-                    "/", 
+                    "/admin/logout",
+                    "/booking-listing",
+                    "/admin-ui/**",
+                    "/",
                     "/favicon.ico"
                 ).permitAll()
                 .anyRequest().authenticated()
             )
+            // Here is the critical registration of your JwtAuthFilter
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

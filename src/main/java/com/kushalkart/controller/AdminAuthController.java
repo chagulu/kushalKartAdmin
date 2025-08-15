@@ -41,10 +41,11 @@ public class AdminAuthController {
     @PostMapping("/logout")
     public ResponseEntity<?> logout(@RequestParam("token") String token) {
         jwtService.blacklistToken(token);
+       
         return ResponseEntity.ok(new ApiResponse(true, "Logged out successfully"));
     }
 
-    // DTO Classes (can be moved to separate files)
+    // DTO Classes
 
     public static class LoginRequest {
         private String username;

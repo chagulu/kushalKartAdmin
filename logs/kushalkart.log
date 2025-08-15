@@ -1,10 +1,27 @@
-2025-08-15T21:10:46.545+05:30  INFO 17817 --- [kushalkart] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-08-15T21:10:46.545+05:30  INFO 17817 --- [kushalkart] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-08-15T21:10:46.552+05:30  INFO 17817 --- [kushalkart] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
-2025-08-15T21:10:46.564+05:30 DEBUG 17817 --- [kushalkart] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing POST /admin/login
-2025-08-15T21:10:46.568+05:30 DEBUG 17817 --- [kushalkart] [http-nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-08-15T21:10:46.570+05:30 DEBUG 17817 --- [kushalkart] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured POST /admin/login
-2025-08-15T21:10:46.883+05:30 DEBUG 17817 --- [kushalkart] [http-nio-8080-exec-1] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
-2025-08-15T21:10:49.890+05:30 DEBUG 17817 --- [kushalkart] [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing POST /admin/logout
-2025-08-15T21:10:49.891+05:30 DEBUG 17817 --- [kushalkart] [http-nio-8080-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-2025-08-15T21:10:49.891+05:30 DEBUG 17817 --- [kushalkart] [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Secured POST /admin/logout
+\2025-08-15T22:15:46.797+05:30 DEBUG 26523 --- [kushalkart] [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Securing POST /admin/login
+2025-08-15T22:15:46.799+05:30 DEBUG 26523 --- [kushalkart] [http-nio-8080-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T22:15:46.799+05:30 DEBUG 26523 --- [kushalkart] [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Secured POST /admin/login
+2025-08-15T22:15:46.938+05:30 DEBUG 26523 --- [kushalkart] [http-nio-8080-exec-6] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
+2025-08-15T22:15:56.446+05:30 DEBUG 26523 --- [kushalkart] [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Securing POST /admin/logout
+2025-08-15T22:15:56.447+05:30 DEBUG 26523 --- [kushalkart] [http-nio-8080-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T22:15:56.447+05:30 DEBUG 26523 --- [kushalkart] [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured POST /admin/logout
+2025-08-15T22:15:58.560+05:30 DEBUG 26523 --- [kushalkart] [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /admin/bookings?page=0&size=10&status=CANCELLED&consumerId=1&workerId=1
+2025-08-15T22:15:58.570+05:30 DEBUG 26523 --- [kushalkart] [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /admin/bookings?page=0&size=10&status=CANCELLED&consumerId=1&workerId=1
+2025-08-15T22:17:07.427+05:30 DEBUG 26523 --- [kushalkart] [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Securing POST /admin/logout
+2025-08-15T22:17:07.431+05:30 DEBUG 26523 --- [kushalkart] [http-nio-8080-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T22:17:07.431+05:30 DEBUG 26523 --- [kushalkart] [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Secured POST /admin/logout
+2025-08-15T22:17:30.441+05:30 DEBUG 26523 --- [kushalkart] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing POST /admin/logout
+2025-08-15T22:17:30.441+05:30 DEBUG 26523 --- [kushalkart] [http-nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T22:17:30.442+05:30 DEBUG 26523 --- [kushalkart] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured POST /admin/logout
+2025-08-15T22:17:32.617+05:30 DEBUG 26523 --- [kushalkart] [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /admin/bookings?page=0&size=10&status=CANCELLED&consumerId=1&workerId=1
+2025-08-15T22:18:03.660+05:30 DEBUG 26523 --- [kushalkart] [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Securing POST /admin/login
+2025-08-15T22:18:03.665+05:30 DEBUG 26523 --- [kushalkart] [http-nio-8080-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T22:18:03.666+05:30 DEBUG 26523 --- [kushalkart] [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Secured POST /admin/login
+2025-08-15T22:18:03.799+05:30 DEBUG 26523 --- [kushalkart] [http-nio-8080-exec-4] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
+2025-08-15T22:18:05.667+05:30 DEBUG 26523 --- [kushalkart] [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /admin/bookings?page=0&size=10&status=CANCELLED&consumerId=1&workerId=1
+2025-08-15T22:18:05.679+05:30 DEBUG 26523 --- [kushalkart] [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /admin/bookings?page=0&size=10&status=CANCELLED&consumerId=1&workerId=1
+2025-08-15T22:18:08.314+05:30 DEBUG 26523 --- [kushalkart] [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Securing POST /admin/logout
+2025-08-15T22:18:08.315+05:30 DEBUG 26523 --- [kushalkart] [http-nio-8080-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T22:18:08.315+05:30 DEBUG 26523 --- [kushalkart] [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Secured POST /admin/logout
+2025-08-15T22:18:10.400+05:30 DEBUG 26523 --- [kushalkart] [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /admin/bookings?page=0&size=10&status=CANCELLED&consumerId=1&workerId=1
+2025-08-15T22:18:10.409+05:30 DEBUG 26523 --- [kushalkart] [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /admin/bookings?page=0&size=10&status=CANCELLED&consumerId=1&workerId=1

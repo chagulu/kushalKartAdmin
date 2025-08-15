@@ -43,13 +43,17 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
         "WHERE (:status IS NULL OR b.status = :status) " +
         "AND (:payStatus IS NULL OR b.paymentStatus = :payStatus) " +
         "AND (:consumerId IS NULL OR b.consumerId = :consumerId) " +
-        "AND (:workerId IS NULL OR b.workerId = :workerId)"
+        "AND (:workerId IS NULL OR b.workerId = :workerId) " +
+        "AND (:consumerName IS NULL OR LOWER(b.consumerName) LIKE LOWER(CONCAT('%', :consumerName, '%'))) " +
+        "AND (:workerName IS NULL OR LOWER(w.name) LIKE LOWER(CONCAT('%', :workerName, '%')))"
     )
     Page<BookingResponse> findBookingsWithNames(
         Status status,
         PaymentStatus payStatus,
         Long consumerId,
         Long workerId,
+        String consumerName,
+        String workerName,
         Pageable pageable
     );
 }

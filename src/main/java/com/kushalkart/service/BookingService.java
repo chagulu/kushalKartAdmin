@@ -22,6 +22,8 @@ public class BookingService {
             Long consumerId,
             Long workerId,
             String paymentStatus,
+            String consumerName,
+            String workerName,
             int page,
             int size,
             String sortBy,
@@ -36,9 +38,15 @@ public class BookingService {
         Booking.Status bookingStatus = parseStatus(status);
         Booking.PaymentStatus payStatus = parsePaymentStatus(paymentStatus);
 
-        // Call new repository method (JOIN fetch for names)
+        // Call updated repository method with names filter
         return bookingRepository.findBookingsWithNames(
-                bookingStatus, payStatus, consumerId, workerId, pageable
+                bookingStatus,
+                payStatus,
+                consumerId,
+                workerId,
+                consumerName,
+                workerName,
+                pageable
         );
     }
 

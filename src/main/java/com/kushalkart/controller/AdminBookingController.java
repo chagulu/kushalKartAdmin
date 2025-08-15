@@ -29,6 +29,8 @@ public class AdminBookingController {
             @RequestParam(required = false) Long consumerId,
             @RequestParam(required = false) Long workerId,
             @RequestParam(required = false) String paymentStatus,
+            @RequestParam(required = false) String consumerName,
+            @RequestParam(required = false) String workerName,
             @RequestParam(defaultValue = "createdAt") String sortBy,
             @RequestParam(defaultValue = "desc") String sortDir
     ) {
@@ -40,7 +42,7 @@ public class AdminBookingController {
 
         try {
             Page<BookingResponse> bookings = bookingService.getAllBookings(
-                    status, consumerId, workerId, paymentStatus, page, size, sortBy, sortDir
+                    status, consumerId, workerId, paymentStatus, consumerName, workerName, page, size, sortBy, sortDir
             );
             return ResponseEntity.ok(new ApiResponse(true, "Bookings retrieved", bookings));
         } catch (IllegalArgumentException e) {

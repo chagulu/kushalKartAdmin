@@ -45,3 +45,322 @@
 
 2025-08-15T11:48:05.880+05:30 DEBUG 94798 --- [kushalkart] [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /admin/bookings?size=100
 2025-08-15T11:48:05.906+05:30 DEBUG 94798 --- [kushalkart] [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /admin/bookings?size=100
+2025-08-15T11:48:41.257+05:30 DEBUG 94798 --- [kushalkart] [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /admin/bookings?page=0&size=10
+2025-08-15T11:48:41.284+05:30 DEBUG 94798 --- [kushalkart] [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /admin/bookings?page=0&size=10
+2025-08-15T11:48:55.470+05:30 DEBUG 94798 --- [kushalkart] [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /admin/bookings?size=2
+2025-08-15T11:48:55.494+05:30 DEBUG 94798 --- [kushalkart] [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /admin/bookings?size=2
+2025-08-15T11:50:39.478+05:30  INFO 94798 --- [kushalkart] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-08-15T11:50:39.488+05:30  INFO 94798 --- [kushalkart] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-08-15T11:50:39.495+05:30  INFO 94798 --- [kushalkart] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-08-15T11:50:39.498+05:30  INFO 94798 --- [kushalkart] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-08-15T11:50:39.504+05:30  INFO 94798 --- [kushalkart] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-08-15T11:50:43.574+05:30  INFO 95920 --- [kushalkart] [main] com.kushalkart.KushalkartApplication     : Starting KushalkartApplication using Java 23.0.2 with PID 95920 (/Users/basantaswain/kushalKartAdmin/target/classes started by basantaswain in /Users/basantaswain/kushalKartAdmin)
+2025-08-15T11:50:43.574+05:30 DEBUG 95920 --- [kushalkart] [main] com.kushalkart.KushalkartApplication     : Running with Spring Boot v3.5.3, Spring v6.2.8
+2025-08-15T11:50:43.575+05:30  INFO 95920 --- [kushalkart] [main] com.kushalkart.KushalkartApplication     : No active profile set, falling back to 1 default profile: "default"
+2025-08-15T11:50:43.873+05:30  INFO 95920 --- [kushalkart] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-08-15T11:50:43.911+05:30  INFO 95920 --- [kushalkart] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 34 ms. Found 6 JPA repository interfaces.
+2025-08-15T11:50:44.137+05:30  INFO 95920 --- [kushalkart] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-08-15T11:50:44.146+05:30  INFO 95920 --- [kushalkart] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-08-15T11:50:44.146+05:30  INFO 95920 --- [kushalkart] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-08-15T11:50:44.172+05:30  INFO 95920 --- [kushalkart] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-08-15T11:50:44.172+05:30  INFO 95920 --- [kushalkart] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 572 ms
+2025-08-15T11:50:44.231+05:30  INFO 95920 --- [kushalkart] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-08-15T11:50:44.257+05:30  INFO 95920 --- [kushalkart] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.18.Final
+2025-08-15T11:50:44.272+05:30  INFO 95920 --- [kushalkart] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-08-15T11:50:44.398+05:30  INFO 95920 --- [kushalkart] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-08-15T11:50:44.412+05:30  INFO 95920 --- [kushalkart] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-08-15T11:50:44.477+05:30  INFO 95920 --- [kushalkart] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@33e50ff2
+2025-08-15T11:50:44.478+05:30  INFO 95920 --- [kushalkart] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-08-15T11:50:44.513+05:30  WARN 95920 --- [kushalkart] [main] org.hibernate.dialect.Dialect            : HHH000511: The 9.3.0 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
+2025-08-15T11:50:44.560+05:30  INFO 95920 --- [kushalkart] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 9.3
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-08-15T11:50:44.974+05:30  INFO 95920 --- [kushalkart] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-15T11:50:45.023+05:30  INFO 95920 --- [kushalkart] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-08-15T11:50:45.182+05:30 DEBUG 95920 --- [kushalkart] [main] com.kushalkart.filter.JwtAuthFilter      : Filter 'jwtAuthFilter' configured for use
+2025-08-15T11:50:45.205+05:30  INFO 95920 --- [kushalkart] [main] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name daoAuthenticationProvider
+2025-08-15T11:50:45.205+05:30  WARN 95920 --- [kushalkart] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-08-15T11:50:45.224+05:30  INFO 95920 --- [kushalkart] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-08-15T11:50:45.805+05:30  WARN 95920 --- [kushalkart] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-08-15T11:50:45.923+05:30 DEBUG 95920 --- [kushalkart] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, JwtAuthFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-08-15T11:50:46.031+05:30  INFO 95920 --- [kushalkart] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-08-15T11:50:46.036+05:30  INFO 95920 --- [kushalkart] [main] com.kushalkart.KushalkartApplication     : Started KushalkartApplication in 2.663 seconds (process running for 2.814)
+2025-08-15T11:50:50.954+05:30  INFO 95920 --- [kushalkart] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-08-15T11:50:50.954+05:30  INFO 95920 --- [kushalkart] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-08-15T11:50:50.959+05:30  INFO 95920 --- [kushalkart] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
+2025-08-15T11:50:50.971+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /booking-listing
+2025-08-15T11:50:50.975+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:50:50.976+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /booking-listing
+2025-08-15T11:50:51.080+05:30  WARN 95920 --- [kushalkart] [http-nio-8080-exec-1] actStandardFragmentInsertionTagProcessor : [THYMELEAF][http-nio-8080-exec-1][fragments/bookingListing] Deprecated unwrapped fragment expression "fragments/sidebar :: sidebar" found in template fragments/bookingListing, line 34, col 8. Please use the complete syntax of fragment expressions instead ("~{fragments/sidebar :: sidebar}"). The old, unwrapped syntax for fragment expressions will be removed in future versions of Thymeleaf.
+2025-08-15T11:50:51.086+05:30  WARN 95920 --- [kushalkart] [http-nio-8080-exec-1] actStandardFragmentInsertionTagProcessor : [THYMELEAF][http-nio-8080-exec-1][fragments/bookingListing] Deprecated unwrapped fragment expression "fragments/navbar :: navbar" found in template fragments/bookingListing, line 63, col 12. Please use the complete syntax of fragment expressions instead ("~{fragments/navbar :: navbar}"). The old, unwrapped syntax for fragment expressions will be removed in future versions of Thymeleaf.
+2025-08-15T11:50:51.091+05:30  WARN 95920 --- [kushalkart] [http-nio-8080-exec-1] actStandardFragmentInsertionTagProcessor : [THYMELEAF][http-nio-8080-exec-1][fragments/bookingListing] Deprecated unwrapped fragment expression "fragments/footer :: footer" found in template fragments/bookingListing, line 144, col 10. Please use the complete syntax of fragment expressions instead ("~{fragments/footer :: footer}"). The old, unwrapped syntax for fragment expressions will be removed in future versions of Thymeleaf.
+2025-08-15T11:50:51.132+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/css/plugins.min.css
+2025-08-15T11:50:51.132+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/js/plugin/webfont/webfont.min.js
+2025-08-15T11:50:51.132+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:50:51.132+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/css/bootstrap.min.css
+2025-08-15T11:50:51.132+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/css/demo.css
+2025-08-15T11:50:51.133+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/css/kaiadmin.min.css
+2025-08-15T11:50:51.133+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:50:51.133+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:50:51.132+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:50:51.133+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/img/kaiadmin/kushalKartLogo.png
+2025-08-15T11:50:51.133+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/js/plugin/webfont/webfont.min.js
+2025-08-15T11:50:51.133+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:50:51.133+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/css/kaiadmin.min.css
+2025-08-15T11:50:51.133+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/css/plugins.min.css
+2025-08-15T11:50:51.133+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/img/kaiadmin/kushalKartLogo.png
+2025-08-15T11:50:51.133+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:50:51.133+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/css/bootstrap.min.css
+2025-08-15T11:50:51.133+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/css/demo.css
+2025-08-15T11:50:51.147+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/img/kaiadmin/kushalkart.png
+2025-08-15T11:50:51.148+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:50:51.148+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/img/kaiadmin/kushalkart.png
+2025-08-15T11:50:51.149+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/css/fonts.min.css
+2025-08-15T11:50:51.151+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:50:51.151+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/css/fonts.min.css
+2025-08-15T11:50:51.154+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/img/chadengle.jpg
+2025-08-15T11:50:51.155+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/img/mlane.jpg
+2025-08-15T11:50:51.155+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:50:51.155+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:50:51.155+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/img/mlane.jpg
+2025-08-15T11:50:51.155+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/img/jm_denis.jpg
+2025-08-15T11:50:51.155+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/img/chadengle.jpg
+2025-08-15T11:50:51.155+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:50:51.157+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/img/jm_denis.jpg
+2025-08-15T11:50:51.159+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/js/core/jquery-3.7.1.min.js
+2025-08-15T11:50:51.159+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js
+2025-08-15T11:50:51.160+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:50:51.160+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/js/core/jquery-3.7.1.min.js
+2025-08-15T11:50:51.160+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/js/core/bootstrap.min.js
+2025-08-15T11:50:51.160+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/js/core/popper.min.js
+2025-08-15T11:50:51.160+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:50:51.160+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:50:51.161+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:50:51.161+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/js/core/bootstrap.min.js
+2025-08-15T11:50:51.161+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js
+2025-08-15T11:50:51.161+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/js/core/popper.min.js
+2025-08-15T11:50:51.161+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/js/kaiadmin.min.js
+2025-08-15T11:50:51.161+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:50:51.161+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/js/kaiadmin.min.js
+2025-08-15T11:50:51.172+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/img/profile2.jpg
+2025-08-15T11:50:51.173+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/img/profile.jpg
+2025-08-15T11:50:51.173+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:50:51.173+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/img/profile2.jpg
+2025-08-15T11:50:51.172+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/js/auth.js
+2025-08-15T11:50:51.173+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:50:51.174+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/js/auth.js
+2025-08-15T11:50:51.173+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/img/talha.jpg
+2025-08-15T11:50:51.174+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:50:51.174+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/img/talha.jpg
+2025-08-15T11:50:51.173+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:50:51.175+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/img/profile.jpg
+2025-08-15T11:50:51.183+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/fonts/fontawesome/fa-solid-900.woff2
+2025-08-15T11:50:51.184+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:50:51.184+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/fonts/fontawesome/fa-solid-900.woff2
+2025-08-15T11:50:51.194+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /admin/bookings?page=0&size=10
+2025-08-15T11:50:51.194+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/img/kaiadmin/kushalKartLogo.png
+2025-08-15T11:50:51.194+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/fonts/fontawesome/fa-regular-400.woff2
+2025-08-15T11:50:51.194+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:50:51.194+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:50:51.194+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/fonts/fontawesome/fa-regular-400.woff2
+2025-08-15T11:50:51.194+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/img/kaiadmin/kushalKartLogo.png
+2025-08-15T11:50:51.194+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/fonts/fontawesome/fa-brands-400.woff2
+2025-08-15T11:50:51.195+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:50:51.195+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/fonts/fontawesome/fa-brands-400.woff2
+2025-08-15T11:50:51.221+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/fonts/simple-line-icons/Simple-Line-Icons.woff2?v=2.4.0
+2025-08-15T11:50:51.222+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:50:51.224+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/fonts/simple-line-icons/Simple-Line-Icons.woff2?v=2.4.0
+2025-08-15T11:50:51.240+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/img/kaiadmin/favicon.ico
+2025-08-15T11:50:51.241+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:50:51.241+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/img/kaiadmin/favicon.ico
+2025-08-15T11:50:51.341+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /admin/bookings?page=0&size=10
+2025-08-15T11:50:51.385+05:30  WARN 95920 --- [kushalkart] [http-nio-8080-exec-4] ration$PageModule$WarningLoggingModifier : Serializing PageImpl instances as-is is not supported, meaning that there is no guarantee about the stability of the resulting JSON structure!
+	For a stable JSON structure, please use Spring Data's PagedModel (globally via @EnableSpringDataWebSupport(pageSerializationMode = VIA_DTO))
+	or Spring HATEOAS and Spring Data's PagedResourcesAssembler as documented in https://docs.spring.io/spring-data/commons/reference/repositories/core-extensions.html#core.web.pageables.
+
+2025-08-15T11:51:10.458+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /admin/bookings?page=1&size=10
+2025-08-15T11:51:10.474+05:30 DEBUG 95920 --- [kushalkart] [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /admin/bookings?page=1&size=10
+2025-08-15T11:52:56.232+05:30  INFO 95920 --- [kushalkart] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-08-15T11:52:56.251+05:30  INFO 95920 --- [kushalkart] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-08-15T11:52:56.257+05:30  INFO 95920 --- [kushalkart] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-08-15T11:52:56.265+05:30  INFO 95920 --- [kushalkart] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-08-15T11:52:56.284+05:30  INFO 95920 --- [kushalkart] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-08-15T11:53:00.335+05:30  INFO 96523 --- [kushalkart] [main] com.kushalkart.KushalkartApplication     : Starting KushalkartApplication using Java 23.0.2 with PID 96523 (/Users/basantaswain/kushalKartAdmin/target/classes started by basantaswain in /Users/basantaswain/kushalKartAdmin)
+2025-08-15T11:53:00.336+05:30 DEBUG 96523 --- [kushalkart] [main] com.kushalkart.KushalkartApplication     : Running with Spring Boot v3.5.3, Spring v6.2.8
+2025-08-15T11:53:00.336+05:30  INFO 96523 --- [kushalkart] [main] com.kushalkart.KushalkartApplication     : No active profile set, falling back to 1 default profile: "default"
+2025-08-15T11:53:00.683+05:30  INFO 96523 --- [kushalkart] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-08-15T11:53:00.722+05:30  INFO 96523 --- [kushalkart] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 33 ms. Found 6 JPA repository interfaces.
+2025-08-15T11:53:00.953+05:30  INFO 96523 --- [kushalkart] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-08-15T11:53:00.960+05:30  INFO 96523 --- [kushalkart] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-08-15T11:53:00.960+05:30  INFO 96523 --- [kushalkart] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-08-15T11:53:00.988+05:30  INFO 96523 --- [kushalkart] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-08-15T11:53:00.988+05:30  INFO 96523 --- [kushalkart] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 618 ms
+2025-08-15T11:53:01.047+05:30  INFO 96523 --- [kushalkart] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-08-15T11:53:01.073+05:30  INFO 96523 --- [kushalkart] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.18.Final
+2025-08-15T11:53:01.089+05:30  INFO 96523 --- [kushalkart] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-08-15T11:53:01.213+05:30  INFO 96523 --- [kushalkart] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-08-15T11:53:01.226+05:30  INFO 96523 --- [kushalkart] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-08-15T11:53:01.296+05:30  INFO 96523 --- [kushalkart] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@33e50ff2
+2025-08-15T11:53:01.296+05:30  INFO 96523 --- [kushalkart] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-08-15T11:53:01.316+05:30  WARN 96523 --- [kushalkart] [main] org.hibernate.dialect.Dialect            : HHH000511: The 9.3.0 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
+2025-08-15T11:53:01.326+05:30  INFO 96523 --- [kushalkart] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 9.3
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-08-15T11:53:01.739+05:30  INFO 96523 --- [kushalkart] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-15T11:53:01.932+05:30  INFO 96523 --- [kushalkart] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-08-15T11:53:02.107+05:30 DEBUG 96523 --- [kushalkart] [main] com.kushalkart.filter.JwtAuthFilter      : Filter 'jwtAuthFilter' configured for use
+2025-08-15T11:53:02.129+05:30  INFO 96523 --- [kushalkart] [main] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name daoAuthenticationProvider
+2025-08-15T11:53:02.130+05:30  WARN 96523 --- [kushalkart] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-08-15T11:53:02.148+05:30  INFO 96523 --- [kushalkart] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-08-15T11:53:02.739+05:30  WARN 96523 --- [kushalkart] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-08-15T11:53:02.854+05:30 DEBUG 96523 --- [kushalkart] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, JwtAuthFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-08-15T11:53:02.961+05:30  INFO 96523 --- [kushalkart] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-08-15T11:53:02.965+05:30  INFO 96523 --- [kushalkart] [main] com.kushalkart.KushalkartApplication     : Started KushalkartApplication in 2.838 seconds (process running for 3.0)
+2025-08-15T11:53:09.002+05:30  INFO 96523 --- [kushalkart] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-08-15T11:53:09.009+05:30  INFO 96523 --- [kushalkart] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-08-15T11:53:09.014+05:30  INFO 96523 --- [kushalkart] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
+2025-08-15T11:53:09.026+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /booking-listing
+2025-08-15T11:53:09.029+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:09.031+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /booking-listing
+2025-08-15T11:53:09.143+05:30  WARN 96523 --- [kushalkart] [http-nio-8080-exec-1] actStandardFragmentInsertionTagProcessor : [THYMELEAF][http-nio-8080-exec-1][fragments/bookingListing] Deprecated unwrapped fragment expression "fragments/sidebar :: sidebar" found in template fragments/bookingListing, line 34, col 8. Please use the complete syntax of fragment expressions instead ("~{fragments/sidebar :: sidebar}"). The old, unwrapped syntax for fragment expressions will be removed in future versions of Thymeleaf.
+2025-08-15T11:53:09.150+05:30  WARN 96523 --- [kushalkart] [http-nio-8080-exec-1] actStandardFragmentInsertionTagProcessor : [THYMELEAF][http-nio-8080-exec-1][fragments/bookingListing] Deprecated unwrapped fragment expression "fragments/navbar :: navbar" found in template fragments/bookingListing, line 63, col 12. Please use the complete syntax of fragment expressions instead ("~{fragments/navbar :: navbar}"). The old, unwrapped syntax for fragment expressions will be removed in future versions of Thymeleaf.
+2025-08-15T11:53:09.155+05:30  WARN 96523 --- [kushalkart] [http-nio-8080-exec-1] actStandardFragmentInsertionTagProcessor : [THYMELEAF][http-nio-8080-exec-1][fragments/bookingListing] Deprecated unwrapped fragment expression "fragments/footer :: footer" found in template fragments/bookingListing, line 144, col 10. Please use the complete syntax of fragment expressions instead ("~{fragments/footer :: footer}"). The old, unwrapped syntax for fragment expressions will be removed in future versions of Thymeleaf.
+2025-08-15T11:53:09.188+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/css/kaiadmin.min.css
+2025-08-15T11:53:09.187+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/css/bootstrap.min.css
+2025-08-15T11:53:09.188+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:09.188+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/css/demo.css
+2025-08-15T11:53:09.188+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:09.188+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/img/kaiadmin/kushalKartLogo.png
+2025-08-15T11:53:09.188+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/js/plugin/webfont/webfont.min.js
+2025-08-15T11:53:09.188+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/css/bootstrap.min.css
+2025-08-15T11:53:09.188+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:09.188+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:09.189+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/img/kaiadmin/kushalKartLogo.png
+2025-08-15T11:53:09.188+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/css/plugins.min.css
+2025-08-15T11:53:09.189+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/css/demo.css
+2025-08-15T11:53:09.189+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:09.189+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/css/plugins.min.css
+2025-08-15T11:53:09.188+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/css/kaiadmin.min.css
+2025-08-15T11:53:09.189+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:09.189+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/js/plugin/webfont/webfont.min.js
+2025-08-15T11:53:09.201+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/img/kaiadmin/kushalkart.png
+2025-08-15T11:53:09.201+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:09.201+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/img/kaiadmin/kushalkart.png
+2025-08-15T11:53:09.202+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/css/fonts.min.css
+2025-08-15T11:53:09.202+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:09.202+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/css/fonts.min.css
+2025-08-15T11:53:09.203+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/img/jm_denis.jpg
+2025-08-15T11:53:09.204+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:09.204+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/img/jm_denis.jpg
+2025-08-15T11:53:09.206+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/img/mlane.jpg
+2025-08-15T11:53:09.207+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:09.207+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/img/mlane.jpg
+2025-08-15T11:53:09.207+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/img/chadengle.jpg
+2025-08-15T11:53:09.208+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:09.208+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/img/chadengle.jpg
+2025-08-15T11:53:09.209+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/js/core/jquery-3.7.1.min.js
+2025-08-15T11:53:09.209+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:09.209+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/js/core/jquery-3.7.1.min.js
+2025-08-15T11:53:09.214+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/js/core/popper.min.js
+2025-08-15T11:53:09.214+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/js/kaiadmin.min.js
+2025-08-15T11:53:09.214+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js
+2025-08-15T11:53:09.214+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:09.214+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:09.214+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:09.215+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/js/core/popper.min.js
+2025-08-15T11:53:09.215+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/js/kaiadmin.min.js
+2025-08-15T11:53:09.215+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/js/core/bootstrap.min.js
+2025-08-15T11:53:09.215+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js
+2025-08-15T11:53:09.215+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:09.215+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/js/core/bootstrap.min.js
+2025-08-15T11:53:09.216+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/js/auth.js
+2025-08-15T11:53:09.216+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:09.216+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/js/auth.js
+2025-08-15T11:53:09.221+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/img/profile.jpg
+2025-08-15T11:53:09.221+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:09.221+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/img/profile2.jpg
+2025-08-15T11:53:09.221+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:09.221+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/img/profile2.jpg
+2025-08-15T11:53:09.221+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/img/profile.jpg
+2025-08-15T11:53:09.222+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/img/talha.jpg
+2025-08-15T11:53:09.223+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:09.223+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/img/talha.jpg
+2025-08-15T11:53:09.231+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/fonts/fontawesome/fa-solid-900.woff2
+2025-08-15T11:53:09.232+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:09.233+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/fonts/fontawesome/fa-solid-900.woff2
+2025-08-15T11:53:09.238+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/img/kaiadmin/kushalKartLogo.png
+2025-08-15T11:53:09.238+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:09.238+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/img/kaiadmin/kushalKartLogo.png
+2025-08-15T11:53:09.238+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /admin/bookings?page=0&size=10
+2025-08-15T11:53:09.238+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/fonts/fontawesome/fa-brands-400.woff2
+2025-08-15T11:53:09.238+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:09.239+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/fonts/fontawesome/fa-regular-400.woff2
+2025-08-15T11:53:09.239+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/fonts/fontawesome/fa-brands-400.woff2
+2025-08-15T11:53:09.239+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:09.240+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/fonts/fontawesome/fa-regular-400.woff2
+2025-08-15T11:53:09.256+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/fonts/simple-line-icons/Simple-Line-Icons.woff2?v=2.4.0
+2025-08-15T11:53:09.257+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:09.257+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/fonts/simple-line-icons/Simple-Line-Icons.woff2?v=2.4.0
+2025-08-15T11:53:09.283+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/img/kaiadmin/favicon.ico
+2025-08-15T11:53:09.283+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:09.283+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/img/kaiadmin/favicon.ico
+2025-08-15T11:53:09.385+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /admin/bookings?page=0&size=10
+2025-08-15T11:53:09.432+05:30  WARN 96523 --- [kushalkart] [http-nio-8080-exec-7] ration$PageModule$WarningLoggingModifier : Serializing PageImpl instances as-is is not supported, meaning that there is no guarantee about the stability of the resulting JSON structure!
+	For a stable JSON structure, please use Spring Data's PagedModel (globally via @EnableSpringDataWebSupport(pageSerializationMode = VIA_DTO))
+	or Spring HATEOAS and Spring Data's PagedResourcesAssembler as documented in https://docs.spring.io/spring-data/commons/reference/repositories/core-extensions.html#core.web.pageables.
+
+2025-08-15T11:53:16.871+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /admin/bookings?page=0&size=10&consumerName=basant
+2025-08-15T11:53:16.887+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /admin/bookings?page=0&size=10&consumerName=basant
+2025-08-15T11:53:21.342+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /admin/bookings?page=0&size=10&consumerName=abc
+2025-08-15T11:53:21.354+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /admin/bookings?page=0&size=10&consumerName=abc
+2025-08-15T11:53:22.106+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /admin/bookings?page=0&size=10&consumerName=abc
+2025-08-15T11:53:22.121+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /admin/bookings?page=0&size=10&consumerName=abc
+2025-08-15T11:53:22.273+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /admin/bookings?page=0&size=10&consumerName=abc
+2025-08-15T11:53:22.287+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /admin/bookings?page=0&size=10&consumerName=abc
+2025-08-15T11:53:24.649+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/css/fonts.min.css
+2025-08-15T11:53:24.649+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /.well-known/appspecific/com.chrome.devtools.json
+2025-08-15T11:53:24.649+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/css/kaiadmin.min.css
+2025-08-15T11:53:24.650+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:24.649+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/css/bootstrap.min.css
+2025-08-15T11:53:24.650+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:24.649+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/css/demo.css
+2025-08-15T11:53:24.650+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/css/bootstrap.min.css
+2025-08-15T11:53:24.650+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:24.649+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/css/plugins.min.css
+2025-08-15T11:53:24.651+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/css/demo.css
+2025-08-15T11:53:24.650+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:24.656+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-8] o.s.s.w.a.Http403ForbiddenEntryPoint     : Pre-authenticated entry point called. Rejecting access
+2025-08-15T11:53:24.657+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/css/kaiadmin.min.css
+2025-08-15T11:53:24.656+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:24.658+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/css/plugins.min.css
+2025-08-15T11:53:24.650+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:24.659+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/css/fonts.min.css
+2025-08-15T11:53:24.669+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /error
+2025-08-15T11:53:24.669+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:24.670+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-8] o.s.s.w.a.Http403ForbiddenEntryPoint     : Pre-authenticated entry point called. Rejecting access
+2025-08-15T11:53:24.680+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/js/core/bootstrap.min.js.map
+2025-08-15T11:53:24.680+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/js/core/popper.min.js.map
+2025-08-15T11:53:24.681+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:24.681+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:24.681+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/js/core/popper.min.js.map
+2025-08-15T11:53:24.681+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/js/core/bootstrap.min.js.map
+2025-08-15T11:53:24.692+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/css/demo.css.map
+2025-08-15T11:53:24.693+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:24.693+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /admin-ui/css/bootstrap.min.css.map
+2025-08-15T11:53:24.694+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-08-15T11:53:24.693+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/css/demo.css.map
+2025-08-15T11:53:24.694+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /admin-ui/css/bootstrap.min.css.map
+2025-08-15T11:53:28.205+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /admin/bookings?page=0&size=10&consumerName=abc
+2025-08-15T11:53:28.222+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /admin/bookings?page=0&size=10&consumerName=abc
+2025-08-15T11:53:39.902+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /admin/bookings?page=0&size=10&status=CANCELLED&consumerName=abc
+2025-08-15T11:53:39.910+05:30 DEBUG 96523 --- [kushalkart] [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /admin/bookings?page=0&size=10&status=CANCELLED&consumerName=abc

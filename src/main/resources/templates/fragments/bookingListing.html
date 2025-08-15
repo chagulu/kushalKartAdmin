@@ -100,11 +100,11 @@
           </div>
 
           <div class="col-md-2">
-            <input class="form-control" id="consumerId" type="number" placeholder="Consumer ID" />
+            <input class="form-control" id="consumerName" type="text" placeholder="Consumer Name" />
           </div>
 
           <div class="col-md-2">
-            <input class="form-control" id="workerId" type="number" placeholder="Worker ID" />
+            <input class="form-control" id="workerName" type="text" placeholder="Worker Name" />
           </div>
 
           <div class="col-md-2">
@@ -159,8 +159,8 @@
   const pageInfo = document.getElementById('pageInfo');
   const statusEl = document.getElementById('status');
   const paymentStatus = document.getElementById('paymentStatus');
-  const consumerId = document.getElementById('consumerId');
-  const workerId = document.getElementById('workerId');
+  const consumerName = document.getElementById('consumerName');
+  const workerName = document.getElementById('workerName');
 
   let page = 0, size = 10, last = false;
 
@@ -170,8 +170,8 @@
     params.set('size', size);
     if (statusEl.value) params.set('status', statusEl.value);
     if (paymentStatus.value) params.set('paymentStatus', paymentStatus.value);
-    if (consumerId.value) params.set('consumerId', consumerId.value);
-    if (workerId.value) params.set('workerId', workerId.value);
+    if (consumerName.value) params.set('consumerName', consumerName.value);
+    if (workerName.value) params.set('workerName', workerName.value);
 
     const res = await authFetch(`/admin/bookings?${params.toString()}`, { method: "GET" });
     if (!res) return;
@@ -184,8 +184,8 @@
       const tr = document.createElement("tr");
       tr.innerHTML = `
         <td>${b.id}</td>
-        <td>${b.consumerId}</td>
-        <td>${b.workerId}</td>
+        <td>${b.consumerName}</td>
+        <td>${b.workerName}</td>
         <td>${b.status}</td>
         <td>${b.paymentStatus}</td>
         <td>${b.amount ?? ""}</td>

@@ -36,29 +36,10 @@ public class BookingService {
         Booking.Status bookingStatus = parseStatus(status);
         Booking.PaymentStatus payStatus = parsePaymentStatus(paymentStatus);
 
-        Page<Booking> result;
-
-        if (consumerId != null && workerId != null && bookingStatus != null) {
-            result = bookingRepository.findByConsumerIdAndWorkerIdAndStatus(consumerId, workerId, bookingStatus, pageable);
-        } else if (consumerId != null && workerId != null) {
-            result = bookingRepository.findByConsumerIdAndWorkerId(consumerId, workerId, pageable);
-        } else if (consumerId != null && bookingStatus != null) {
-            result = bookingRepository.findByConsumerIdAndStatus(consumerId, bookingStatus, pageable);
-        } else if (workerId != null && bookingStatus != null) {
-            result = bookingRepository.findByWorkerIdAndStatus(workerId, bookingStatus, pageable);
-        } else if (consumerId != null) {
-            result = bookingRepository.findByConsumerId(consumerId, pageable);
-        } else if (workerId != null) {
-            result = bookingRepository.findByWorkerId(workerId, pageable);
-        } else if (bookingStatus != null) {
-            result = bookingRepository.findByStatus(bookingStatus, pageable);
-        } else if (payStatus != null) {
-            result = bookingRepository.findByPaymentStatus(payStatus, pageable);
-        } else {
-            result = bookingRepository.findAll(pageable);
-        }
-
-        return result.map(BookingResponse::new);
+        // Call new repository method (JOIN fetch for names)
+        return bookingRepository.findBookingsWithNames(
+                bookingStatus, payStatus, consumerId, workerId, pageable
+        );
     }
 
     private Booking.Status parseStatus(String status) {

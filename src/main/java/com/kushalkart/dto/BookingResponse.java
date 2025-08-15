@@ -12,8 +12,10 @@ import java.time.LocalDateTime;
 public class BookingResponse {
 
     private Long id;
-    private String consumerName;   // New - human-readable consumer name
-    private String workerName;     // New - human-readable worker name
+    private Long consumerId;     // Added consumerId field
+    private Long workerId;       // Added workerId field
+    private String consumerName;   // Human-readable consumer name
+    private String workerName;     // Human-readable worker name
     private Long serviceId;
     private String service;
     private String description;
@@ -32,6 +34,8 @@ public class BookingResponse {
      * Constructor used by JPQL projection in BookingRepository.findBookingsWithNames
      */
     public BookingResponse(Long id,
+                           Long consumerId,
+                           Long workerId,
                            String consumerName,
                            String workerName,
                            Long serviceId,
@@ -48,6 +52,8 @@ public class BookingResponse {
                            LocalDateTime createdAt,
                            LocalDateTime updatedAt) {
         this.id = id;
+        this.consumerId = consumerId;
+        this.workerId = workerId;
         this.consumerName = consumerName;
         this.workerName = workerName;
         this.serviceId = serviceId;
@@ -71,6 +77,8 @@ public class BookingResponse {
      */
     public BookingResponse(Booking b) {
         this.id = b.getId();
+        this.consumerId = b.getConsumerId();
+        this.workerId = b.getWorkerId();
         this.consumerName = b.getConsumerName();
         this.workerName = null; // You would need to set workerName manually here if using this constructor
         this.serviceId = b.getServiceId();
@@ -92,6 +100,14 @@ public class BookingResponse {
 
     public Long getId() {
         return id;
+    }
+
+    public Long getConsumerId() {
+        return consumerId;
+    }
+
+    public Long getWorkerId() {
+        return workerId;
     }
 
     public String getConsumerName() {

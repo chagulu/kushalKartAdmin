@@ -1,55 +1,23 @@
-<!-- File: src/main/resources/templates/fragments/workerKycRegistration.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>KushalKart Admin - Worker KYC Registration</title>
-    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
-    <link rel="icon" href="/admin-ui/img/kaiadmin/favicon.ico" type="image/x-icon" />
-
-    <!-- Fonts and icons -->
-    <script src="/admin-ui/js/plugin/webfont/webfont.min.js"></script>
-    <script>
-        WebFont.load({
-          google: { families: ["Public Sans:300,400,500,600,700"] },
-          custom: {
-            families: ["Font Awesome 5 Solid","Font Awesome 5 Regular","Font Awesome 5 Brands","simple-line-icons"],
-            urls: ["/admin-ui/css/fonts.min.css"],
-          },
-          active: function () {
-            sessionStorage.fonts = true;
-          },
-        });
-    </script>
-    <!-- CSS Files -->
-    <link rel="stylesheet" href="/admin-ui/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/admin-ui/css/plugins.min.css" />
-    <link rel="stylesheet" href="/admin-ui/css/kaiadmin.min.css" />
-    <link rel="stylesheet" href="/admin-ui/css/demo.css" />
-    <style>
-      label { font-weight: 500; }
-      .form-label { margin-bottom: 5px; }
-    </style>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>KushalKart Admin - Worker KYC Registration</title>
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
+  <link rel="icon" href="/admin-ui/img/kaiadmin/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="/admin-ui/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/admin-ui/css/plugins.min.css" />
+  <link rel="stylesheet" href="/admin-ui/css/kaiadmin.min.css" />
+  <link rel="stylesheet" href="/admin-ui/css/demo.css" />
+  <style>
+    label { font-weight: 500; }
+    .image-preview { max-width: 160px; max-height: 160px; border: 1px solid #ccc; margin-bottom: 6px;}
+  </style>
 </head>
 <body>
 <div class="wrapper">
   <div th:replace="fragments/sidebar :: sidebar"></div>
   <div class="main-panel">
-    <div class="main-header">
-      <div class="main-header-logo">
-        <div class="logo-header" data-background-color="dark">
-          <a href="/dashboard" class="logo">
-            <img src="/admin-ui/img/kaiadmin/kushalkart.png" alt="Kushal Kart Logo" class="navbar-brand" height="20" />
-          </a>
-          <div class="nav-toggle">
-            <button class="btn btn-toggle toggle-sidebar"><i class="gg-menu-right"></i></button>
-            <button class="btn btn-toggle sidenav-toggler"><i class="gg-menu-left"></i></button>
-          </div>
-          <button class="topbar-toggler more"><i class="gg-more-vertical"></i></button>
-        </div>
-      </div>
-      <div th:replace="fragments/navbar :: navbar"></div>
-    </div>
     <div class="container">
       <div class="page-inner">
         <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
@@ -59,8 +27,10 @@
           </div>
         </div>
 
-        <form id="kycForm" action="/admin/worker/kyc/update" method="post" class="needs-validation" novalidate>
+        <form id="kycForm" action="/admin/worker/kyc/update" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
           <div class="row g-3">
+            <input type="hidden" name="id" id="workerId" />
+            <input type="hidden" name="adminId" value="1" />
             <div class="col-md-6">
               <label for="name" class="form-label">Name</label>
               <input type="text" id="name" name="name" class="form-control" readonly />
@@ -76,6 +46,28 @@
             <div class="col-md-6">
               <label for="email" class="form-label">Email</label>
               <input type="email" id="email" name="email" class="form-control" readonly />
+            </div>
+            <div class="col-md-6">
+              <label for="aadhaarNumber" class="form-label">Aadhaar Number</label>
+              <input type="text" id="aadhaarNumber" name="aadhaarNumber" class="form-control" maxlength="20" required />
+            </div>
+            <!-- Aadhaar Front Image -->
+            <div class="col-md-6">
+              <label class="form-label">Aadhaar Front</label>
+              <div id="aadhaarFrontPreview"></div>
+              <input type="file" id="aadhaarFront" name="aadhaarFront" accept="image/*" class="form-control" />
+            </div>
+            <!-- Aadhaar Back Image -->
+            <div class="col-md-6">
+              <label class="form-label">Aadhaar Back</label>
+              <div id="aadhaarBackPreview"></div>
+              <input type="file" id="aadhaarBack" name="aadhaarBack" accept="image/*" class="form-control" />
+            </div>
+            <!-- Worker Photo Image -->
+            <div class="col-md-6">
+              <label class="form-label">Worker Photo</label>
+              <div id="workerPhotoPreview"></div>
+              <input type="file" id="workerPhoto" name="workerPhoto" accept="image/*" class="form-control" />
             </div>
             <div class="col-md-6">
               <label for="kycStatus" class="form-label">KYC Status</label>
@@ -104,49 +96,44 @@
             </div>
           </div>
         </form>
-
       </div>
     </div>
-    <div th:replace="fragments/footer :: footer"></div>
   </div>
 </div>
-
 <!-- Scripts -->
 <script src="/admin-ui/js/core/jquery-3.7.1.min.js"></script>
-<script src="/admin-ui/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
-<script src="/admin-ui/js/core/popper.min.js"></script>
 <script src="/admin-ui/js/core/bootstrap.min.js"></script>
-<script src="/admin-ui/js/kaiadmin.min.js"></script>
-<script src="/admin-ui/js/auth.js"></script>
 <script>
-  // AJAX Prefill KYC Form
   $(document).ready(function() {
-    // Pull Worker ID from query params
     const params = new URLSearchParams(window.location.search);
     const workerId = params.get('id');
     if (workerId) {
       $.get(`/admin/workers?id=${workerId}`, function(data) {
-        // data.content is array for paginated API, use first element
         const worker = Array.isArray(data.content) ? data.content[0] : data;
         if (worker) {
+          $('#workerId').val(worker.id);
           $('#name').val(worker.name || '');
           $('#username').val(worker.username || '');
           $('#mobile').val(worker.mobile || '');
           $('#email').val(worker.email || '');
+          $('#aadhaarNumber').val(worker.aadhaarNumber || '');
           $('#kycStatus').val(worker.kycStatus || 'PENDING');
           $('#verified').val(worker.verified ? 'true' : 'false');
-          // Hidden field for worker ID (needed for update POST)
-          if ($('#workerId').length === 0) {
-            $('#kycForm').prepend(`<input type="hidden" id="workerId" name="id" value="${worker.id}" />`);
-          } else {
-            $('#workerId').val(worker.id);
+          // Preview images if URLs exist
+          if(worker.aadhaarFront) {
+            $('#aadhaarFrontPreview').html(`<img src="${worker.aadhaarFront}" class="image-preview" alt="Aadhaar Front"/>`);
+          }
+          if(worker.aadhaarBack) {
+            $('#aadhaarBackPreview').html(`<img src="${worker.aadhaarBack}" class="image-preview" alt="Aadhaar Back"/>`);
+          }
+          if(worker.workerPhoto) {
+            $('#workerPhotoPreview').html(`<img src="${worker.workerPhoto}" class="image-preview" alt="Worker Photo"/>`);
           }
         }
       });
     }
   });
 
-  // Bootstrap form validation example
   (() => {
     'use strict'
     const forms = document.querySelectorAll('.needs-validation')

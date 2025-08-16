@@ -27,6 +27,37 @@
   <link rel="stylesheet" href="/admin-ui/css/plugins.min.css" />
   <link rel="stylesheet" href="/admin-ui/css/kaiadmin.min.css" />
   <link rel="stylesheet" href="/admin-ui/css/demo.css" />
+
+  <style>
+    /* Prevent buttons from stacking vertically, keep side by side with spacing */
+    .actions-column {
+      white-space: nowrap;
+    }
+    .actions-column button {
+      margin-right: 5px;
+    }
+    /* KYC status badge colors */
+    .status-btn {
+      padding: 5px 10px;
+      border: none;
+      border-radius: 3px;
+      color: white;
+      font-weight: 600;
+      font-size: 0.875rem;
+      display: inline-block;
+      min-width: 70px;
+      text-align: center;
+    }
+    .status-pending {
+      background-color: #f0ad4e; /* Bootstrap warning yellow */
+    }
+    .status-approved {
+      background-color: #5cb85c; /* Bootstrap success green */
+    }
+    .status-rejected {
+      background-color: #d9534f; /* Bootstrap danger red */
+    }
+  </style>
 </head>
 <body>
 <div class="wrapper">
@@ -170,6 +201,17 @@
     };
   }
 
+  // Return CSS class for KYC status badge
+  function kycStatusClass(kycStatus) {
+    if (!kycStatus) return '';
+    switch (kycStatus.toUpperCase()) {
+      case 'PENDING': return 'status-pending';
+      case 'APPROVED': return 'status-approved';
+      case 'REJECTED': return 'status-rejected';
+      default: return '';
+    }
+  }
+
   function buildQueryParams(filters, page) {
     const params = new URLSearchParams();
     params.append('page', page);
@@ -209,6 +251,7 @@
       return;
     }
     workers.forEach(w => {
+      const statusClass = kycStatusClass(w.kycStatus);
       tbody.append(`
         <tr>
           <td>${w.id}</td>
@@ -216,10 +259,13 @@
           <td>${w.username || ''}</td>
           <td>${w.mobile || ''}</td>
           <td>${w.email || ''}</td>
-          <td>${w.kycStatus || ''}</td>
+          <td><span class="status-btn ${statusClass}">${w.kycStatus || ''}</span></td>
           <td>${w.verified ? 'Yes' : 'No'}</td>
           <td>${formatDate(w.createdAt)}</td>
-          <td><button class="btn btn-primary btn-sm edit-btn" data-id="${w.id}">Edit</button></td>
+          <td class="actions-column">
+            <button class="btn btn-primary btn-sm edit-btn" data-id="${w.id}">Edit</button>
+            <button class="btn btn-success btn-sm update-kyc-btn" data-id="${w.id}">Update KYC</button>
+          </td>
         </tr>
       `);
     });
@@ -228,6 +274,12 @@
     $('.edit-btn').click(function() {
       const workerId = $(this).data('id');
       window.location.href = `/admin/worker/edit?id=${workerId}`;
+    });
+
+    // Attach click handler for Update KYC button
+    $('.update-kyc-btn').click(function() {
+      const workerId = $(this).data('id');
+      window.location.href = `/admin/worker/kyc?id=${workerId}`;
     });
   }
 

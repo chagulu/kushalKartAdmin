@@ -55,8 +55,22 @@ function authFetch(url, options = {}) {
     });
 }
 
-// ===== Global logout function =====
-window.logout = function() {
+// ===== Global logout function available as window.logout =====
+
+document.addEventListener('DOMContentLoaded', function () {
+    var logoutBtn = document.getElementById('logoutLink');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', function(event) {
+        event.preventDefault();
+        window.logout();
+      });
+    } else {
+      console.log('No element with id="logoutLink" exists');
+    }
+  });
+
+  window.logout = function() {
+    alert('Logging out...');
     const token = getToken();
 
     if (!token) {
@@ -65,11 +79,17 @@ window.logout = function() {
         return;
     }
 
-    // Optional API call to invalidate token server-side
-    authFetch('/api/auth/logout', { method: 'POST' })
-        .catch(err => console.warn('Logout API failed or not implemented:', err))
-        .finally(() => {
-            clearAuth();
-            window.location.href = '/login.html';
-        });
+    // Remove Bearer prefix if stored with one (defensive)
+    let bareToken = token.startsWith('Bearer ') ? token.slice(7) : token;
+
+    // Call your logout endpoint if required, then always clear and redirect
+    fetch(`/admin/logout?token=${encodeURIComponent(bareToken)}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    }).catch(err => {
+        console.warn('Logout API failed:', err);
+    }).finally(() => {
+        clearAuth();
+        window.location.href = '/admin/login';
+    });
 };

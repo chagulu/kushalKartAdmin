@@ -53,6 +53,7 @@ public class SecurityConfig {
                     "/admin/login",
                     "/admin/logout",
                     "/booking-listing",
+                    "/worker/kyc",
                     "/admin-ui/**",
                     "/",
                     "/favicon.ico"

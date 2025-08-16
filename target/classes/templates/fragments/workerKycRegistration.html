@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>KushalKart Admin - Worker KYC Registration</title>
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
+  <link rel="icon" href="/admin-ui/img/kaiadmin/favicon.ico" type="image/x-icon" />
+
+  <!-- Fonts and icons -->
+  <script src="/admin-ui/js/plugin/webfont/webfont.min.js"></script>
+  <script>
+    WebFont.load({
+      google: { families: ["Public Sans:300,400,500,600,700"] },
+      custom: {
+        families: ["Font Awesome 5 Solid","Font Awesome 5 Regular","Font Awesome 5 Brands","simple-line-icons"],
+        urls: ["/admin-ui/css/fonts.min.css"],
+      },
+      active: function () { sessionStorage.fonts = true; },
+    });
+  </script>
+
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="/admin-ui/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/admin-ui/css/plugins.min.css" />
+  <link rel="stylesheet" href="/admin-ui/css/kaiadmin.min.css" />
+  <link rel="stylesheet" href="/admin-ui/css/demo.css" />
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- Sidebar Include -->
+  <div th:replace="fragments/sidebar :: sidebar"></div>
+
+  <!-- Main Panel -->
+  <div class="main-panel">
+
+    <!-- Main Header -->
+    <div class="main-header">
+      <div class="main-header-logo">
+        <div class="logo-header" data-background-color="dark">
+          <a href="index.html" class="logo">
+            <img src="/admin-ui/img/kaiadmin/kushalkart.png" alt="Kushal Kart Logo" class="navbar-brand" height="20" />
+          </a>
+          <div class="nav-toggle">
+            <button class="btn btn-toggle toggle-sidebar"><i class="gg-menu-right"></i></button>
+            <button class="btn btn-toggle sidenav-toggler"><i class="gg-menu-left"></i></button>
+          </div>
+          <button class="topbar-toggler more"><i class="gg-more-vertical"></i></button>
+        </div>
+      </div>
+
+      <!-- Navbar Include -->
+      <div th:replace="fragments/navbar :: navbar"></div>
+    </div>
+
+    <!-- Page Content -->
+    <div class="container">
+      <div class="page-inner">
+
+        <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
+          <div>
+            <h3 class="fw-bold mb-3">Worker KYC Registration</h3>
+            <h6 class="op-7 mb-2">Please fill in the details to complete KYC for the worker</h6>
+          </div>
+        </div>
+
+        <form id="workerKycForm" enctype="multipart/form-data" class="mb-4">
+
+          <div class="mb-3">
+            <label for="workerId" class="form-label">Worker ID</label>
+            <input type="text" id="workerId" name="workerId" required class="form-control" placeholder="Worker ID">
+          </div>
+
+          <div class="mb-3">
+            <label for="aadhaarNumber" class="form-label">Aadhaar Number</label>
+            <input type="text" id="aadhaarNumber" name="aadhaarNumber" maxlength="12" required class="form-control" placeholder="12-digit Aadhaar Number">
+          </div>
+
+          <div class="mb-3">
+            <label for="aadhaarFront" class="form-label">Aadhaar Front Image</label>
+            <input type="file" id="aadhaarFront" name="aadhaarFront" accept=".jpg,.jpeg,.png" required class="form-control">
+          </div>
+
+          <div class="mb-3">
+            <label for="aadhaarBack" class="form-label">Aadhaar Back Image</label>
+            <input type="file" id="aadhaarBack" name="aadhaarBack" accept=".jpg,.jpeg,.png" required class="form-control">
+          </div>
+
+          <div class="mb-3">
+            <label for="workerPhoto" class="form-label">Worker Photo</label>
+            <input type="file" id="workerPhoto" name="workerPhoto" accept=".jpg,.jpeg,.png" required class="form-control">
+          </div>
+
+          <div class="mb-3">
+            <label for="adminId" class="form-label">Admin ID</label>
+            <input type="text" id="adminId" name="adminId" required class="form-control" placeholder="Admin ID">
+          </div>
+
+          <div class="mb-3">
+            <label for="authToken" class="form-label">Authorization Token</label>
+            <input type="text" id="authToken" name="authToken" required class="form-control" placeholder="Bearer token">
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit KYC</button>
+        </form>
+
+        <div id="result" class="mt-3"></div>
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div th:replace="fragments/footer :: footer"></div>
+
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="/admin-ui/js/core/jquery-3.7.1.min.js"></script>
+<script src="/admin-ui/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+<script src="/admin-ui/js/core/popper.min.js"></script>
+<script src="/admin-ui/js/core/bootstrap.min.js"></script>
+<script src="/admin-ui/js/kaiadmin.min.js"></script>
+<script src="/admin-ui/js/auth.js"></script>
+
+<script>
+  document.getElementById('workerKycForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    const form = event.target;
+    const formData = new FormData();
+
+    formData.append('aadhaarNumber', form.aadhaarNumber.value);
+    formData.append('aadhaarFront', form.aadhaarFront.files[0]);
+    formData.append('aadhaarBack', form.aadhaarBack.files);
+    formData.append('workerPhoto', form.workerPhoto.files);
+    formData.append('adminId', form.adminId.value);
+
+    const workerId = form.workerId.value;
+    const token = form.authToken.value.trim();
+
+    const resultDiv = document.getElementById('result');
+    resultDiv.textContent = 'Submitting KYC...';
+
+    try {
+      const response = await fetch(`/admin/worker/kyc/${encodeURIComponent(workerId)}`, {
+        method: 'POST',
+        headers: {
+          'Authorization': token
+        },
+        body: formData
+      });
+
+      if (response.ok) {
+        const data = await response.text();
+        resultDiv.textContent = 'KYC submitted successfully: ' + data;
+      } else {
+        const errorText = await response.text();
+        resultDiv.textContent = `Error ${response.status}: ${errorText}`;
+      }
+    } catch (error) {
+      resultDiv.textContent = 'Submission failed: ' + error.message;
+    }
+  });
+</script>
+
+</body>
+</html>

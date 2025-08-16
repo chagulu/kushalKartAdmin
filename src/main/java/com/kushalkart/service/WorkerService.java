@@ -14,6 +14,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class WorkerService {
@@ -56,5 +57,13 @@ public class WorkerService {
         };
 
         return workerRepository.findAll(spec, pageable);
+    }
+
+    /**
+     * Find Worker by ID. Returns null if not found.
+     */
+    public Worker findById(Long id) {
+        Optional<Worker> workerOpt = workerRepository.findById(id);
+        return workerOpt.orElse(null);
     }
 }

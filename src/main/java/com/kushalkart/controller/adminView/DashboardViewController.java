@@ -22,4 +22,11 @@ public class DashboardViewController {
         // Thymeleaf (or your template engine) loads templates/workerKycForm.html
         return "fragments/workerKycRegistration"; 
     }
+
+    // Serve the KYC registration form page for worker with given ID
+    @GetMapping("/worker/listing")
+    public String workerListing() {
+        // Thymeleaf (or your template engine) loads templates/workerKycForm.html
+        return "fragments/workerListing"; 
+    }
 }

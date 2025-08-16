@@ -52,8 +52,10 @@ public class SecurityConfig {
                     "/dashboard",
                     "/admin/login",
                     "/admin/logout",
+                    "/admin/workers",
                     "/booking-listing",
                     "/worker/kyc",
+                     "/worker/listing",
                     "/admin-ui/**",
                     "/",
                     "/favicon.ico"

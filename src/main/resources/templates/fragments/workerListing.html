@@ -1,0 +1,263 @@
+<!-- File: src/main/resources/templates/fragments/workerListing.html -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>KushalKart Admin - Worker Listing</title>
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
+  <link rel="icon" href="/admin-ui/img/kaiadmin/favicon.ico" type="image/x-icon" />
+
+  <!-- Fonts and icons -->
+  <script src="/admin-ui/js/plugin/webfont/webfont.min.js"></script>
+  <script>
+    WebFont.load({
+      google: { families: ["Public Sans:300,400,500,600,700"] },
+      custom: {
+        families: ["Font Awesome 5 Solid","Font Awesome 5 Regular","Font Awesome 5 Brands","simple-line-icons"],
+        urls: ["/admin-ui/css/fonts.min.css"],
+      },
+      active: function () {
+        sessionStorage.fonts = true;
+      },
+    });
+  </script>
+
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="/admin-ui/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/admin-ui/css/plugins.min.css" />
+  <link rel="stylesheet" href="/admin-ui/css/kaiadmin.min.css" />
+  <link rel="stylesheet" href="/admin-ui/css/demo.css" />
+</head>
+<body>
+<div class="wrapper">
+  <!-- Sidebar Include -->
+  <div th:replace="fragments/sidebar :: sidebar"></div>
+
+  <!-- Main Panel -->
+  <div class="main-panel">
+
+    <!-- Main Header -->
+    <div class="main-header">
+      <div class="main-header-logo">
+        <div class="logo-header" data-background-color="dark">
+          <a href="/dashboard" class="logo">
+            <img src="/admin-ui/img/kaiadmin/kushalkart.png" alt="Kushal Kart Logo" class="navbar-brand" height="20" />
+          </a>
+          <div class="nav-toggle">
+            <button class="btn btn-toggle toggle-sidebar">
+              <i class="gg-menu-right"></i>
+            </button>
+            <button class="btn btn-toggle sidenav-toggler">
+              <i class="gg-menu-left"></i>
+            </button>
+          </div>
+          <button class="topbar-toggler more">
+            <i class="gg-more-vertical"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Navbar Include -->
+      <div th:replace="fragments/navbar :: navbar"></div>
+    </div>
+
+    <!-- Page Content -->
+    <div class="container">
+      <div class="page-inner">
+
+        <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
+          <div>
+            <h3 class="fw-bold mb-3">Worker Listing</h3>
+            <h6 class="op-7 mb-2">Manage Workers and Their KYC Status</h6>
+          </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="row mb-3 g-2">
+          <div class="col-md-2">
+            <select class="form-control" id="kycStatus">
+              <option value="">All KYC Status</option>
+              <option value="PENDING">PENDING</option>
+              <option value="APPROVED">APPROVED</option>
+              <option value="REJECTED">REJECTED</option>
+            </select>
+          </div>
+
+          <div class="col-md-2">
+            <input class="form-control" id="mobile" type="text" placeholder="Mobile number" />
+          </div>
+
+          <div class="col-md-2">
+            <input class="form-control" id="name" type="text" placeholder="Name" />
+          </div>
+
+          <div class="col-md-2">
+            <input class="form-control" id="fromDate" type="date" placeholder="Created From" />
+          </div>
+
+          <div class="col-md-2">
+            <input class="form-control" id="toDate" type="date" placeholder="Created To" />
+          </div>
+
+          <div class="col-md-2">
+            <button class="btn btn-primary w-100" id="applyFilters">Apply Filters</button>
+          </div>
+        </div>
+
+        <!-- Workers Table -->
+        <div class="table-responsive">
+          <table class="table table-striped table-hover">
+            <thead class="thead-light">
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Mobile</th>
+                <th>Email</th>
+                <th>KYC Status</th>
+                <th>Verified</th>
+                <th>Created At</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="workerRows"></tbody>
+          </table>
+        </div>
+
+        <!-- Pager -->
+        <div class="d-flex align-items-center gap-2 mt-3">
+          <button class="btn btn-secondary" id="prevPage" disabled>Prev</button>
+          <span id="pageInfo" class="mx-2"></span>
+          <button class="btn btn-secondary" id="nextPage" disabled>Next</button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div th:replace="fragments/footer :: footer"></div>
+
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="/admin-ui/js/core/jquery-3.7.1.min.js"></script>
+<script src="/admin-ui/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+<script src="/admin-ui/js/core/popper.min.js"></script>
+<script src="/admin-ui/js/core/bootstrap.min.js"></script>
+<script src="/admin-ui/js/kaiadmin.min.js"></script>
+<script src="/admin-ui/js/auth.js"></script>
+
+<script>
+  let page = 0;
+  const size = 20;
+  let totalPages = 1;
+  let last = false;
+
+  function formatDate(dateStr) {
+    if (!dateStr) return '';
+    const d = new Date(dateStr);
+    return d.toLocaleDateString() + ' ' + d.toLocaleTimeString();
+  }
+
+  function getFilters() {
+    return {
+      kycStatus: $('#kycStatus').val(),
+      mobile: $('#mobile').val(),
+      name: $('#name').val(),
+      from: $('#fromDate').val(),
+      to: $('#toDate').val()
+    };
+  }
+
+  function buildQueryParams(filters, page) {
+    const params = new URLSearchParams();
+    params.append('page', page);
+    params.append('size', size);
+    for (const [key, value] of Object.entries(filters)) {
+      if (value) {
+        params.append(key, value);
+      }
+    }
+    return params.toString();
+  }
+
+  function fetchWorkers(pageNum = 0) {
+    const filters = getFilters();
+    const queryParams = buildQueryParams(filters, pageNum);
+    $.ajax({
+      url: `/admin/workers?${queryParams}`,
+      type: 'GET',
+      success: function(data) {
+        populateTable(data.content);
+        page = data.pageable.pageNumber;
+        totalPages = data.totalPages;
+        last = data.last;
+        updatePagination();
+      },
+      error: function() {
+        alert('Failed to fetch workers.');
+      }
+    });
+  }
+
+  function populateTable(workers) {
+    const tbody = $('#workerRows');
+    tbody.empty();
+    if (workers.length === 0) {
+      tbody.append('<tr><td colspan="9" class="text-center">No workers found</td></tr>');
+      return;
+    }
+    workers.forEach(w => {
+      tbody.append(`
+        <tr>
+          <td>${w.id}</td>
+          <td>${w.name || ''}</td>
+          <td>${w.username || ''}</td>
+          <td>${w.mobile || ''}</td>
+          <td>${w.email || ''}</td>
+          <td>${w.kycStatus || ''}</td>
+          <td>${w.verified ? 'Yes' : 'No'}</td>
+          <td>${formatDate(w.createdAt)}</td>
+          <td><button class="btn btn-primary btn-sm edit-btn" data-id="${w.id}">Edit</button></td>
+        </tr>
+      `);
+    });
+
+    // Attach click handlers to edit buttons
+    $('.edit-btn').click(function() {
+      const workerId = $(this).data('id');
+      window.location.href = `/admin/worker/edit?id=${workerId}`;
+    });
+  }
+
+  function updatePagination() {
+    $('#pageInfo').text(`Page ${page + 1} of ${totalPages}`);
+    $('#prevPage').prop('disabled', page <= 0);
+    $('#nextPage').prop('disabled', last);
+  }
+
+  $(document).ready(function() {
+    fetchWorkers();
+
+    $('#applyFilters').click(function() {
+      page = 0;
+      fetchWorkers();
+    });
+
+    $('#prevPage').click(function() {
+      if (page > 0) {
+        fetchWorkers(page - 1);
+      }
+    });
+
+    $('#nextPage').click(function() {
+      if (!last) {
+        fetchWorkers(page + 1);
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

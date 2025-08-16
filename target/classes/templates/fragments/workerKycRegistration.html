@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>KushalKart Admin - Worker KYC Registration</title>
@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="/admin-ui/css/demo.css" />
   <style>
     label { font-weight: 500; }
-    .image-preview { max-width: 160px; max-height: 160px; border: 1px solid #ccc; margin-bottom: 6px;}
+    .image-preview { max-width: 160px; max-height: 160px; border: 1px solid #ccc; margin-bottom: 6px; }
   </style>
 </head>
 <body>
@@ -27,68 +27,33 @@
           </div>
         </div>
 
-        <form id="kycForm" action="/admin/worker/kyc/update" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+        <form id="kycForm" enctype="multipart/form-data" class="needs-validation" novalidate>
+          <input type="hidden" id="workerId" name="workerId" />
+          <input type="hidden" id="adminId" name="adminId" value="1" />
           <div class="row g-3">
-            <input type="hidden" name="id" id="workerId" />
-            <input type="hidden" name="adminId" value="1" />
-            <div class="col-md-6">
-              <label for="name" class="form-label">Name</label>
-              <input type="text" id="name" name="name" class="form-control" readonly />
-            </div>
-            <div class="col-md-6">
-              <label for="username" class="form-label">Username</label>
-              <input type="text" id="username" name="username" class="form-control" readonly />
-            </div>
-            <div class="col-md-6">
-              <label for="mobile" class="form-label">Mobile</label>
-              <input type="text" id="mobile" name="mobile" class="form-control" readonly />
-            </div>
-            <div class="col-md-6">
-              <label for="email" class="form-label">Email</label>
-              <input type="email" id="email" name="email" class="form-control" readonly />
-            </div>
             <div class="col-md-6">
               <label for="aadhaarNumber" class="form-label">Aadhaar Number</label>
               <input type="text" id="aadhaarNumber" name="aadhaarNumber" class="form-control" maxlength="20" required />
+              <div class="invalid-feedback">Please enter Aadhaar Number.</div>
             </div>
-            <!-- Aadhaar Front Image -->
+
             <div class="col-md-6">
-              <label class="form-label">Aadhaar Front</label>
+              <label class="form-label">Aadhaar Front (required)</label>
               <div id="aadhaarFrontPreview"></div>
-              <input type="file" id="aadhaarFront" name="aadhaarFront" accept="image/*" class="form-control" />
+              <input type="file" id="aadhaarFront" name="aadhaarFront" accept="image/*" class="form-control" required />
+              <div class="invalid-feedback">Please select Aadhaar Front image.</div>
             </div>
-            <!-- Aadhaar Back Image -->
             <div class="col-md-6">
-              <label class="form-label">Aadhaar Back</label>
+              <label class="form-label">Aadhaar Back (required)</label>
               <div id="aadhaarBackPreview"></div>
-              <input type="file" id="aadhaarBack" name="aadhaarBack" accept="image/*" class="form-control" />
+              <input type="file" id="aadhaarBack" name="aadhaarBack" accept="image/*" class="form-control" required />
+              <div class="invalid-feedback">Please select Aadhaar Back image.</div>
             </div>
-            <!-- Worker Photo Image -->
             <div class="col-md-6">
-              <label class="form-label">Worker Photo</label>
+              <label class="form-label">Worker Photo (required)</label>
               <div id="workerPhotoPreview"></div>
-              <input type="file" id="workerPhoto" name="workerPhoto" accept="image/*" class="form-control" />
-            </div>
-            <div class="col-md-6">
-              <label for="kycStatus" class="form-label">KYC Status</label>
-              <select id="kycStatus" name="kycStatus" class="form-control" required>
-                <option value="PENDING">PENDING</option>
-                <option value="APPROVED">APPROVED</option>
-                <option value="REJECTED">REJECTED</option>
-              </select>
-              <div class="invalid-feedback">
-                Please select a KYC status.
-              </div>
-            </div>
-            <div class="col-md-6">
-              <label for="verified" class="form-label">Verified</label>
-              <select id="verified" name="verified" class="form-control" required>
-                <option value="true">Yes</option>
-                <option value="false">No</option>
-              </select>
-              <div class="invalid-feedback">
-                Please select verified status.
-              </div>
+              <input type="file" id="workerPhoto" name="workerPhoto" accept="image/*" class="form-control" required />
+              <div class="invalid-feedback">Please select Worker Photo image.</div>
             </div>
             <div class="col-12 mt-3">
               <button class="btn btn-success" type="submit">Save KYC Info</button>
@@ -96,57 +61,84 @@
             </div>
           </div>
         </form>
+
       </div>
     </div>
   </div>
 </div>
-<!-- Scripts -->
+
+<script src="/admin-ui/js/auth.js"></script>
 <script src="/admin-ui/js/core/jquery-3.7.1.min.js"></script>
 <script src="/admin-ui/js/core/bootstrap.min.js"></script>
 <script>
   $(document).ready(function() {
     const params = new URLSearchParams(window.location.search);
     const workerId = params.get('id');
-    if (workerId) {
-      $.get(`/admin/workers?id=${workerId}`, function(data) {
-        const worker = Array.isArray(data.content) ? data.content[0] : data;
-        if (worker) {
-          $('#workerId').val(worker.id);
-          $('#name').val(worker.name || '');
-          $('#username').val(worker.username || '');
-          $('#mobile').val(worker.mobile || '');
-          $('#email').val(worker.email || '');
-          $('#aadhaarNumber').val(worker.aadhaarNumber || '');
-          $('#kycStatus').val(worker.kycStatus || 'PENDING');
-          $('#verified').val(worker.verified ? 'true' : 'false');
-          // Preview images if URLs exist
-          if(worker.aadhaarFront) {
-            $('#aadhaarFrontPreview').html(`<img src="${worker.aadhaarFront}" class="image-preview" alt="Aadhaar Front"/>`);
-          }
-          if(worker.aadhaarBack) {
-            $('#aadhaarBackPreview').html(`<img src="${worker.aadhaarBack}" class="image-preview" alt="Aadhaar Back"/>`);
-          }
-          if(worker.workerPhoto) {
-            $('#workerPhotoPreview').html(`<img src="${worker.workerPhoto}" class="image-preview" alt="Worker Photo"/>`);
-          }
+    $('#workerId').val(workerId);
+
+    // Optionally, prefill Aadhaar Number etc. from GET API if needed
+    // authFetch(`/admin/workers?id=${workerId}`)
+    //   .then(resp => resp.json())
+    //   .then(data => {
+    //     // If you want to prefill Aadhaar Number:
+    //     const worker = Array.isArray(data.content) ? data.content[0] : data;
+    //     if (worker && worker.aadhaarNumber) {
+    //       $('#aadhaarNumber').val(worker.aadhaarNumber);
+    //     }
+    //   });
+
+    $('#kycForm').submit(function(event) {
+      event.preventDefault();
+
+      if (!this.checkValidity()) {
+        event.stopPropagation();
+        $(this).addClass('was-validated');
+        return;
+      }
+
+      const token = getToken();
+      if (!token) {
+        alert('Admin token missing, please login');
+        window.location.href = '/login.html';
+        return;
+      }
+
+      // Construct FormData with only required API fields!
+      const formData = new FormData();
+      formData.append('aadhaarNumber', $('#aadhaarNumber').val());
+      formData.append('aadhaarFront', $('#aadhaarFront')[0].files[0]);
+      formData.append('aadhaarBack', $('#aadhaarBack')[0].files[0]);
+      formData.append('workerPhoto', $('#workerPhoto')[0].files[0]);
+      formData.append('adminId', $('#adminId').val());
+
+      // Debug: log payload to console before submit
+      for (let pair of formData.entries()) {
+        if (pair[1] instanceof File) {
+          console.log(`${pair[0]}: filename=${pair[1].name}, size=${pair[1].size}, type=${pair[1].type}`);
+        } else {
+          console.log(`${pair[0]}: ${pair[1]}`);
+        }
+      }
+
+      $.ajax({
+        url: `/admin/worker/kyc/${workerId}`,
+        type: 'POST',
+        headers: {
+          'Authorization': 'Bearer ' + token
+        },
+        data: formData,
+        processData: false, // crucial for FormData
+        contentType: false, // crucial for FormData
+        success: function(response) {
+          alert('KYC updated successfully');
+          window.location.href = '/admin/workers';
+        },
+        error: function(xhr) {
+          alert('Failed to update KYC: ' + xhr.responseText);
         }
       });
-    }
+    });
   });
-
-  (() => {
-    'use strict'
-    const forms = document.querySelectorAll('.needs-validation')
-    Array.from(forms).forEach(form => {
-      form.addEventListener('submit', event => {
-        if (!form.checkValidity()) {
-          event.preventDefault()
-          event.stopPropagation()
-        }
-        form.classList.add('was-validated')
-      }, false)
-    })
-  })()
 </script>
 </body>
 </html>

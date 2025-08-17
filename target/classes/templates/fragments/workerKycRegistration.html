@@ -30,7 +30,25 @@
         <form id="kycForm" enctype="multipart/form-data" class="needs-validation" novalidate>
           <input type="hidden" id="workerId" name="workerId" />
           <input type="hidden" id="adminId" name="adminId" value="1" />
+
           <div class="row g-3">
+            <!-- Read-only fields -->
+            <div class="col-md-6">
+              <label class="form-label">Name</label>
+              <input type="text" id="name" class="form-control" readonly />
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Mobile</label>
+              <input type="text" id="mobile" class="form-control" readonly />
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Aadhaar (masked)</label>
+              <input type="text" id="aadhaarNumberMasked" class="form-control" readonly />
+            </div>
+
+            <!-- Editable Aadhaar Number -->
             <div class="col-md-6">
               <label for="aadhaarNumber" class="form-label">Aadhaar Number</label>
               <input type="text" id="aadhaarNumber" name="aadhaarNumber" class="form-control" maxlength="20" required />
@@ -79,23 +97,32 @@
     const workerId = params.get('id');
     $('#workerId').val(workerId);
 
-    if(workerId) {
-      authFetch(`/admin/workers?id=${workerId}`)
+    function isPublicUrl(url) {
+      return typeof url === 'string' && (url.startsWith('/files/') || url.startsWith('https://') || url.startsWith('http://'));
+    }
+
+    // Load existing worker info
+    if (workerId) {
+      authFetch(`/admin/workers?id=${workerId}&page=0&size=1`)
         .then(resp => resp.json())
         .then(data => {
           const worker = Array.isArray(data.content) ? data.content[0] : data;
-          if(worker) {
-            $('#aadhaarNumber').val(worker.aadhaarNumber || '');
-            // Show existing uploaded images as previews
-            if(worker.aadhaarFront) {
-              $('#aadhaarFrontPreview').html(`<img src="${worker.aadhaarFront}" class="image-preview" alt="Aadhaar Front" />`);
-            }
-            if(worker.aadhaarBack) {
-              $('#aadhaarBackPreview').html(`<img src="${worker.aadhaarBack}" class="image-preview" alt="Aadhaar Back" />`);
-            }
-            if(worker.workerPhoto) {
-              $('#workerPhotoPreview').html(`<img src="${worker.workerPhoto}" class="image-preview" alt="Worker Photo" />`);
-            }
+          if (!worker) return;
+
+          $('#name').val(worker.name || '');
+          $('#mobile').val(worker.mobile || '');
+          const maskedAadhaar = worker.kyc && worker.kyc.aadhaarNumber ? worker.kyc.aadhaarNumber : '';
+          $('#aadhaarNumberMasked').val(maskedAadhaar);
+          $('#aadhaarNumber').val(maskedAadhaar || '');
+
+          if (isPublicUrl(worker.aadhaarFront)) {
+            $('#aadhaarFrontPreview').html(`<img src="${worker.aadhaarFront}" class="image-preview" alt="Aadhaar Front" />`);
+          }
+          if (isPublicUrl(worker.aadhaarBack)) {
+            $('#aadhaarBackPreview').html(`<img src="${worker.aadhaarBack}" class="image-preview" alt="Aadhaar Back" />`);
+          }
+          if (isPublicUrl(worker.workerPhoto)) {
+            $('#workerPhotoPreview').html(`<img src="${worker.workerPhoto}" class="image-preview" alt="Worker Photo" />`);
           }
         })
         .catch(() => {
@@ -104,6 +131,7 @@
         });
     }
 
+    // Submit form
     $('#kycForm').submit(function(event) {
       event.preventDefault();
 
@@ -122,24 +150,30 @@
 
       const formData = new FormData();
       formData.append('aadhaarNumber', $('#aadhaarNumber').val());
-      formData.append('aadhaarFront', $('#aadhaarFront')[0].files);
-      formData.append('aadhaarBack', $('#aadhaarBack').files);
-      formData.append('workerPhoto', $('#workerPhoto').files);
+      formData.append('aadhaarFront', $('#aadhaarFront')[0].files[0]);
+      formData.append('aadhaarBack', $('#aadhaarBack')[0].files[0]);
+      formData.append('workerPhoto', $('#workerPhoto')[0].files[0]);
       formData.append('adminId', $('#adminId').val());
 
+      // Debug log
+      for (let [k, v] of formData.entries()) {
+        if (v instanceof File) {
+          console.log(`${k}: name=${v.name}, size=${v.size}`);
+        } else {
+          console.log(`${k}: ${v}`);
+        }
+      }
+
       $.ajax({
-        url: `/admin/worker/kyc/${workerId}`,
+        url: `/admin/worker/kyc/${$('#workerId').val()}`,
         type: 'POST',
-        headers: {
-          'Authorization': 'Bearer ' + token
-        },
+        headers: { 'Authorization': 'Bearer ' + token },
         data: formData,
         processData: false,
         contentType: false,
-        success: function(response) {
+        success: function() {
           alert('KYC updated successfully');
-          // Redirect back to same form so it reloads with updated data
-          window.location.href = `/worker/kyc?id=${workerId}`;
+          window.location.href = `/worker/kyc?id=${$('#workerId').val()}`;
         },
         error: function(xhr) {
           alert('Failed to update KYC: ' + xhr.responseText);

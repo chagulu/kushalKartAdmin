@@ -62,7 +62,7 @@ public class WorkerKycController {
         kyc.setAadhaarBackPath(saveFile(aadhaarBack));
         kyc.setWorkerPhotoPath(saveFile(workerPhoto));
         kyc.setStatus(WorkerKyc.Status.PENDING);
-        kyc.setRegisteredBy(currentAdmin);
+        kyc.setRegisteredBy(currentAdmin.getId());
 
         workerKycRepository.save(kyc);
 
@@ -118,7 +118,7 @@ public class WorkerKycController {
         }
 
         kyc.setStatus(status);
-        kyc.setVerifiedBy(currentAdmin);
+        kyc.setVerifiedBy(currentAdmin.getId());
         workerKycRepository.save(kyc);
 
         return ResponseEntity.ok(new ApiResponse(true, "KYC " + status.name()));

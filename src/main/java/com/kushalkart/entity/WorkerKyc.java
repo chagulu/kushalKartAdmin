@@ -1,22 +1,22 @@
 package com.kushalkart.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "worker_kyc")
 public class WorkerKyc {
 
-    public enum Status {
-        PENDING, VERIFIED, REJECTED
-    }
-
+    // If using shared primary key: worker_id is PK and FK
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "worker_id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "worker_id", nullable = false)
+    @JsonBackReference
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
+    @JoinColumn(name = "worker_id")
     private Worker worker;
 
     @Column(name = "aadhaar_number", nullable = false)
@@ -32,92 +32,57 @@ public class WorkerKyc {
     private String workerPhotoPath;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "status")
     private Status status = Status.PENDING;
 
-    @ManyToOne
-    @JoinColumn(name = "registered_by", nullable = false)
-    private AdminUser registeredBy;
-
-    @ManyToOne
-    @JoinColumn(name = "verified_by")
-    private AdminUser verifiedBy;
+    @Column(name = "registered_by")
+    private Long registeredBy;
 
     @Column(name = "created_at")
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private Timestamp createdAt;
 
-    // getters & setters …
-    // include verifiedBy
+    @Column(name = "updated_at")
+    private Timestamp updatedAt;
 
-    public Long getId() {
-        return id;
+    @Column(name = "verified_by")
+    private Long verifiedBy;
+
+    public enum Status {
+        PENDING, VERIFIED, REJECTED
     }
 
-    public Worker getWorker() {
-        return worker;
-    }
+    // Getters and setters
 
-    public void setWorker(Worker worker) {
-        this.worker = worker;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public String getAadhaarNumber() {
-        return aadhaarNumber;
-    }
+    public Worker getWorker() { return worker; }
+    public void setWorker(Worker worker) { this.worker = worker; }
 
-    public void setAadhaarNumber(String aadhaarNumber) {
-        this.aadhaarNumber = aadhaarNumber;
-    }
+    public String getAadhaarNumber() { return aadhaarNumber; }
+    public void setAadhaarNumber(String aadhaarNumber) { this.aadhaarNumber = aadhaarNumber; }
 
-    public String getAadhaarFrontPath() {
-        return aadhaarFrontPath;
-    }
+    public String getAadhaarFrontPath() { return aadhaarFrontPath; }
+    public void setAadhaarFrontPath(String aadhaarFrontPath) { this.aadhaarFrontPath = aadhaarFrontPath; }
 
-    public void setAadhaarFrontPath(String aadhaarFrontPath) {
-        this.aadhaarFrontPath = aadhaarFrontPath;
-    }
+    public String getAadhaarBackPath() { return aadhaarBackPath; }
+    public void setAadhaarBackPath(String aadhaarBackPath) { this.aadhaarBackPath = aadhaarBackPath; }
 
-    public String getAadhaarBackPath() {
-        return aadhaarBackPath;
-    }
+    public String getWorkerPhotoPath() { return workerPhotoPath; }
+    public void setWorkerPhotoPath(String workerPhotoPath) { this.workerPhotoPath = workerPhotoPath; }
 
-    public void setAadhaarBackPath(String aadhaarBackPath) {
-        this.aadhaarBackPath = aadhaarBackPath;
-    }
+    public Status getStatus() { return status; }
+    public void setStatus(Status status) { this.status = status; }
 
-    public String getWorkerPhotoPath() {
-        return workerPhotoPath;
-    }
+    public Long getRegisteredBy() { return registeredBy; }
+    public void setRegisteredBy(Long registeredBy) { this.registeredBy = registeredBy; }
 
-    public void setWorkerPhotoPath(String workerPhotoPath) {
-        this.workerPhotoPath = workerPhotoPath;
-    }
+    public Timestamp getCreatedAt() { return createdAt; }
+    public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
 
-    public Status getStatus() {
-        return status;
-    }
+    public Timestamp getUpdatedAt() { return updatedAt; }
+    public void setUpdatedAt(Timestamp updatedAt) { this.updatedAt = updatedAt; }
 
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    public AdminUser getRegisteredBy() {
-        return registeredBy;
-    }
-
-    public void setRegisteredBy(AdminUser registeredBy) {
-        this.registeredBy = registeredBy;
-    }
-
-    public AdminUser getVerifiedBy() {
-        return verifiedBy;
-    }
-
-    public void setVerifiedBy(AdminUser verifiedBy) {
-        this.verifiedBy = verifiedBy;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
+    public Long getVerifiedBy() { return verifiedBy; }
+    public void setVerifiedBy(Long verifiedBy) { this.verifiedBy = verifiedBy; }
 }

@@ -43,18 +43,21 @@
               <input type="file" id="aadhaarFront" name="aadhaarFront" accept="image/*" class="form-control" required />
               <div class="invalid-feedback">Please select Aadhaar Front image.</div>
             </div>
+
             <div class="col-md-6">
               <label class="form-label">Aadhaar Back (required)</label>
               <div id="aadhaarBackPreview"></div>
               <input type="file" id="aadhaarBack" name="aadhaarBack" accept="image/*" class="form-control" required />
               <div class="invalid-feedback">Please select Aadhaar Back image.</div>
             </div>
+
             <div class="col-md-6">
               <label class="form-label">Worker Photo (required)</label>
               <div id="workerPhotoPreview"></div>
               <input type="file" id="workerPhoto" name="workerPhoto" accept="image/*" class="form-control" required />
               <div class="invalid-feedback">Please select Worker Photo image.</div>
             </div>
+
             <div class="col-12 mt-3">
               <button class="btn btn-success" type="submit">Save KYC Info</button>
               <a href="/admin/workers" class="btn btn-secondary ms-2">Back to List</a>
@@ -76,16 +79,30 @@
     const workerId = params.get('id');
     $('#workerId').val(workerId);
 
-    // Optionally, prefill Aadhaar Number etc. from GET API if needed
-    // authFetch(`/admin/workers?id=${workerId}`)
-    //   .then(resp => resp.json())
-    //   .then(data => {
-    //     // If you want to prefill Aadhaar Number:
-    //     const worker = Array.isArray(data.content) ? data.content[0] : data;
-    //     if (worker && worker.aadhaarNumber) {
-    //       $('#aadhaarNumber').val(worker.aadhaarNumber);
-    //     }
-    //   });
+    if(workerId) {
+      authFetch(`/admin/workers?id=${workerId}`)
+        .then(resp => resp.json())
+        .then(data => {
+          const worker = Array.isArray(data.content) ? data.content[0] : data;
+          if(worker) {
+            $('#aadhaarNumber').val(worker.aadhaarNumber || '');
+            // Show existing uploaded images as previews
+            if(worker.aadhaarFront) {
+              $('#aadhaarFrontPreview').html(`<img src="${worker.aadhaarFront}" class="image-preview" alt="Aadhaar Front" />`);
+            }
+            if(worker.aadhaarBack) {
+              $('#aadhaarBackPreview').html(`<img src="${worker.aadhaarBack}" class="image-preview" alt="Aadhaar Back" />`);
+            }
+            if(worker.workerPhoto) {
+              $('#workerPhotoPreview').html(`<img src="${worker.workerPhoto}" class="image-preview" alt="Worker Photo" />`);
+            }
+          }
+        })
+        .catch(() => {
+          alert('Failed to load worker KYC info. Please login again.');
+          window.location.href = '/login.html';
+        });
+    }
 
     $('#kycForm').submit(function(event) {
       event.preventDefault();
@@ -103,22 +120,12 @@
         return;
       }
 
-      // Construct FormData with only required API fields!
       const formData = new FormData();
       formData.append('aadhaarNumber', $('#aadhaarNumber').val());
-      formData.append('aadhaarFront', $('#aadhaarFront')[0].files[0]);
-      formData.append('aadhaarBack', $('#aadhaarBack')[0].files[0]);
-      formData.append('workerPhoto', $('#workerPhoto')[0].files[0]);
+      formData.append('aadhaarFront', $('#aadhaarFront')[0].files);
+      formData.append('aadhaarBack', $('#aadhaarBack').files);
+      formData.append('workerPhoto', $('#workerPhoto').files);
       formData.append('adminId', $('#adminId').val());
-
-      // Debug: log payload to console before submit
-      for (let pair of formData.entries()) {
-        if (pair[1] instanceof File) {
-          console.log(`${pair[0]}: filename=${pair[1].name}, size=${pair[1].size}, type=${pair[1].type}`);
-        } else {
-          console.log(`${pair[0]}: ${pair[1]}`);
-        }
-      }
 
       $.ajax({
         url: `/admin/worker/kyc/${workerId}`,
@@ -127,11 +134,12 @@
           'Authorization': 'Bearer ' + token
         },
         data: formData,
-        processData: false, // crucial for FormData
-        contentType: false, // crucial for FormData
+        processData: false,
+        contentType: false,
         success: function(response) {
           alert('KYC updated successfully');
-          window.location.href = '/admin/workers';
+          // Redirect back to same form so it reloads with updated data
+          window.location.href = `/worker/kyc?id=${workerId}`;
         },
         error: function(xhr) {
           alert('Failed to update KYC: ' + xhr.responseText);

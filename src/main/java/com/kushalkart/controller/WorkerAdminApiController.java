@@ -17,22 +17,24 @@ import java.time.LocalDate;
 @RequestMapping("/admin/workers")
 public class WorkerAdminApiController {
 
-    @Autowired
-    private WorkerService workerService;
+   @Autowired
+private WorkerService workerService;
 
-    // GET /admin/workers?status=ACTIVE&aadhaarNumber=...&mobile=...&name=...&from=...&to=...&page=0&size=10
-    @GetMapping
-    public Page<Worker> getWorkers(
-            @RequestParam(required = false) String status,
-            @RequestParam(required = false) String aadhaarNumber,
-            @RequestParam(required = false) String mobile,
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to,
-            @PageableDefault(size = 10) Pageable pageable
-    ) {
-        return workerService.findWorkersForAdminPanel(
-            status, aadhaarNumber, mobile, name, from, to, pageable
-        );
-    }
+// GET /admin/workers?kycStatus=PENDING&aadhaarNumber=...&mobile=...&name=...&from=...&to=...&id=1&page=0&size=10
+@GetMapping
+public Page<Worker> getWorkers(
+        @RequestParam(required = false, name = "kycStatus") String kycStatus,
+        @RequestParam(required = false) String aadhaarNumber,
+        @RequestParam(required = false) String mobile,
+        @RequestParam(required = false) String name,
+        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
+        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to,
+        @RequestParam(required = false) Long id,
+        @PageableDefault(size = 10) Pageable pageable
+) {
+    return workerService.findWorkersForAdminPanel(
+            kycStatus, aadhaarNumber, mobile, name, from, to, id, pageable
+    );
+}
+
 }

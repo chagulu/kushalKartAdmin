@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.Map;
 import java.util.Optional;
 
@@ -33,7 +34,7 @@ public class WorkerKycController {
     private WorkerKycRepository workerKycRepository;
 
     /**
-     * Submit KYC
+     * Submit or update KYC (1 row per worker)
      */
     @PostMapping("/{workerId}")
     @Transactional
@@ -55,18 +56,34 @@ public class WorkerKycController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ApiResponse(false, "Unauthorized"));
         }
 
-        WorkerKyc kyc = new WorkerKyc();
+        // 🔹 Fetch existing KYC or create new
+        WorkerKyc kyc = workerKycRepository.findById(workerId).orElse(new WorkerKyc());
         kyc.setWorker(worker);
         kyc.setAadhaarNumber(maskAadhaar(aadhaarNumber));
-        kyc.setAadhaarFrontPath(saveFile(aadhaarFront));
-        kyc.setAadhaarBackPath(saveFile(aadhaarBack));
-        kyc.setWorkerPhotoPath(saveFile(workerPhoto));
+
+        // File save logic (overwrite each time here; can make conditional if desired)
+        if (aadhaarFront != null && !aadhaarFront.isEmpty()) {
+            kyc.setAadhaarFrontPath(saveFile(aadhaarFront));
+        }
+        if (aadhaarBack != null && !aadhaarBack.isEmpty()) {
+            kyc.setAadhaarBackPath(saveFile(aadhaarBack));
+        }
+        if (workerPhoto != null && !workerPhoto.isEmpty()) {
+            kyc.setWorkerPhotoPath(saveFile(workerPhoto));
+        }
+
         kyc.setStatus(WorkerKyc.Status.PENDING);
         kyc.setRegisteredBy(currentAdmin.getId());
+        kyc.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+
+        if (kyc.getCreatedAt() == null) {
+            kyc.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+        }
 
         workerKycRepository.save(kyc);
 
-        return ResponseEntity.ok(new ApiResponse(true, "eKYC submitted successfully", Map.of("kycId", kyc.getId())));
+        return ResponseEntity.ok(new ApiResponse(true, "eKYC submitted successfully",
+                Map.of("kycId", kyc.getId())));
     }
 
     /**
@@ -94,7 +111,8 @@ public class WorkerKycController {
     public ResponseEntity<?> getKycStatus(@PathVariable Long workerId) {
         Optional<WorkerKyc> kycOpt = workerKycRepository.findTopByWorkerIdOrderByCreatedAtDesc(workerId);
         if (kycOpt.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(false, "No KYC record found for worker"));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ApiResponse(false, "No KYC record found for worker"));
         }
 
         WorkerKyc kyc = kycOpt.get();
@@ -105,7 +123,8 @@ public class WorkerKycController {
         )));
     }
 
-    // Helpers
+    // ================= Helpers =================
+
     private ResponseEntity<?> updateStatus(Long kycId, WorkerKyc.Status status) {
         WorkerKyc kyc = workerKycRepository.findById(kycId).orElse(null);
         if (kyc == null) {
@@ -129,13 +148,12 @@ public class WorkerKycController {
         if (auth == null || !auth.isAuthenticated()) {
             return null;
         }
-
         String username = auth.getName();
         return adminUserRepository.findByUsername(username).orElse(null);
     }
 
     private String maskAadhaar(String aadhaar) {
-        if (aadhaar.length() < 4) return "***";
+        if (aadhaar == null || aadhaar.length() < 4) return "***";
         String last4 = aadhaar.substring(aadhaar.length() - 4);
         return "**** **** **** " + last4;
     }
@@ -143,9 +161,10 @@ public class WorkerKycController {
     private String saveFile(MultipartFile file) throws IOException {
         String filename = System.currentTimeMillis() + "_" + file.getOriginalFilename();
         file.transferTo(new java.io.File("/tmp/" + filename));
-        return "/tmp/" + filename;
+        return "/tmp/" + filename; // In production, use a proper storage path
     }
 
+    // Simple response wrapper
     static class ApiResponse {
         private boolean success;
         private String message;
@@ -162,16 +181,8 @@ public class WorkerKycController {
             this.data = data;
         }
 
-        public boolean isSuccess() {
-            return success;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public Object getData() {
-            return data;
-        }
+        public boolean isSuccess() { return success; }
+        public String getMessage() { return message; }
+        public Object getData() { return data; }
     }
 }

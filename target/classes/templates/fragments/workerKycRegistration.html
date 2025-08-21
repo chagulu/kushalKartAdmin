@@ -27,6 +27,19 @@
           </div>
         </div>
 
+        <!-- Approve/Reject Section -->
+        <div class="mb-4">
+          <label for="kycAction" class="form-label">KYC Action</label>
+          <select id="kycAction" class="form-select w-auto d-inline-block">
+            <option value="">-- Select Action --</option>
+             <option value="pending">Pending</option>
+            <option value="reject">Reject</option>
+            <option value="approve">Approve</option>
+          </select>
+          <button id="submitKycAction" type="button" class="btn btn-primary ms-2">Submit Action</button>
+        </div>
+
+        <!-- Main KYC Form -->
         <form id="kycForm" enctype="multipart/form-data" class="needs-validation" novalidate>
           <input type="hidden" id="workerId" name="workerId" />
           <input type="hidden" id="adminId" name="adminId" value="1" />
@@ -70,11 +83,19 @@
             </div>
 
             <div class="col-md-6">
-              <label class="form-label">Worker Photo (required)</label>
-              <div id="workerPhotoPreview"></div>
-              <input type="file" id="workerPhoto" name="workerPhoto" accept="image/*" class="form-control" required />
-              <div class="invalid-feedback">Please select Worker Photo image.</div>
-            </div>
+          <label for="workerPhoto" class="form-label">Worker Photo <span class="text-danger">(required)</span></label>
+          <div id="workerPhotoPreview" class="mb-2"></div>
+          <input type="file" id="workerPhoto" name="workerPhoto" accept="image/*" class="form-control" required />
+          <div class="invalid-feedback">Please select Worker Photo image.</div>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">KYC Status</label>
+          <div class="mb-3">
+            <span id="kycStatusText" class="fw-bold text-primary"></span>
+          </div>
+        </div>
+
 
             <div class="col-12 mt-3">
               <button class="btn btn-success" type="submit">Save KYC Info</button>
@@ -91,6 +112,9 @@
 <script src="/admin-ui/js/auth.js"></script>
 <script src="/admin-ui/js/core/jquery-3.7.1.min.js"></script>
 <script src="/admin-ui/js/core/bootstrap.min.js"></script>
+<script src="/admin-ui/js/auth.js"></script>
+<script src="/admin-ui/js/core/jquery-3.7.1.min.js"></script>
+<script src="/admin-ui/js/core/bootstrap.min.js"></script>
 <script>
   $(document).ready(function() {
     const params = new URLSearchParams(window.location.search);
@@ -98,7 +122,22 @@
     $('#workerId').val(workerId);
 
     function isPublicUrl(url) {
-      return typeof url === 'string' && (url.startsWith('/files/') || url.startsWith('https://') || url.startsWith('http://'));
+      return typeof url === 'string' && (
+        url.startsWith('/files/') ||
+        url.startsWith('https://') ||
+        url.startsWith('http://')
+      );
+    }
+
+    // Helper to map status to Bootstrap color
+    function getStatusColor(status) {
+      switch ((status || '').toUpperCase()) {
+        case 'APPROVED':
+        case 'VERIFIED': return 'success';
+        case 'REJECTED': return 'danger';
+        case 'PENDING':
+        default: return 'primary';
+      }
     }
 
     // Load existing worker info
@@ -109,12 +148,14 @@
           const worker = Array.isArray(data.content) ? data.content[0] : data;
           if (!worker) return;
 
+          // Populate basic fields
           $('#name').val(worker.name || '');
           $('#mobile').val(worker.mobile || '');
-          const maskedAadhaar = worker.kyc && worker.kyc.aadhaarNumber ? worker.kyc.aadhaarNumber : '';
+          const maskedAadhaar = worker.kyc?.aadhaarNumber || '';
           $('#aadhaarNumberMasked').val(maskedAadhaar);
-          $('#aadhaarNumber').val(maskedAadhaar || '');
+          $('#aadhaarNumber').val(maskedAadhaar);
 
+          // Show images if available
           if (isPublicUrl(worker.aadhaarFront)) {
             $('#aadhaarFrontPreview').html(`<img src="${worker.aadhaarFront}" class="image-preview" alt="Aadhaar Front" />`);
           }
@@ -124,6 +165,13 @@
           if (isPublicUrl(worker.workerPhoto)) {
             $('#workerPhotoPreview').html(`<img src="${worker.workerPhoto}" class="image-preview" alt="Worker Photo" />`);
           }
+
+          // Show KYC status - prefer nested status if available
+          const status = worker.kyc?.status || worker.kycStatus || 'N/A';
+          $('#kycStatusText')
+            .text(status)
+            .removeClass()
+            .addClass(`fw-bold text-${getStatusColor(status)}`);
         })
         .catch(() => {
           alert('Failed to load worker KYC info. Please login again.');
@@ -131,7 +179,7 @@
         });
     }
 
-    // Submit form
+    // Submit form for KYC update
     $('#kycForm').submit(function(event) {
       event.preventDefault();
 
@@ -155,15 +203,6 @@
       formData.append('workerPhoto', $('#workerPhoto')[0].files[0]);
       formData.append('adminId', $('#adminId').val());
 
-      // Debug log
-      for (let [k, v] of formData.entries()) {
-        if (v instanceof File) {
-          console.log(`${k}: name=${v.name}, size=${v.size}`);
-        } else {
-          console.log(`${k}: ${v}`);
-        }
-      }
-
       $.ajax({
         url: `/admin/worker/kyc/${$('#workerId').val()}`,
         type: 'POST',
@@ -180,7 +219,42 @@
         }
       });
     });
+
+    // Approve/Reject handler
+    $('#submitKycAction').on('click', function () {
+      const action = $('#kycAction').val();
+      const token = getToken();
+
+      if (!action) {
+        alert('Please select an action');
+        return;
+      }
+      if (!token) {
+        alert('Admin token missing, please login');
+        window.location.href = '/login.html';
+        return;
+      }
+
+      $.ajax({
+        url: `/admin/worker/kyc/${$('#workerId').val()}/${action}`,
+        type: 'POST',
+        headers: { 'Authorization': 'Bearer ' + token },
+        success: function () {
+          alert(`KYC ${action}d successfully`);
+          // Update status visually without reload
+          $('#kycStatusText')
+            .text(action.toUpperCase())
+            .removeClass()
+            .addClass(`fw-bold text-${getStatusColor(action)}`);
+        },
+        error: function (xhr) {
+          alert(`Failed to ${action} KYC: ` + xhr.responseText);
+        }
+      });
+    });
   });
 </script>
+
+
 </body>
 </html>

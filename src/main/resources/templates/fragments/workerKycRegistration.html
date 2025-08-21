@@ -83,11 +83,19 @@
             </div>
 
             <div class="col-md-6">
-              <label class="form-label">Worker Photo (required)</label>
-              <div id="workerPhotoPreview"></div>
-              <input type="file" id="workerPhoto" name="workerPhoto" accept="image/*" class="form-control" required />
-              <div class="invalid-feedback">Please select Worker Photo image.</div>
-            </div>
+          <label for="workerPhoto" class="form-label">Worker Photo <span class="text-danger">(required)</span></label>
+          <div id="workerPhotoPreview" class="mb-2"></div>
+          <input type="file" id="workerPhoto" name="workerPhoto" accept="image/*" class="form-control" required />
+          <div class="invalid-feedback">Please select Worker Photo image.</div>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">KYC Status</label>
+          <div class="mb-3">
+            <span id="kycStatusText" class="fw-bold text-primary"></span>
+          </div>
+        </div>
+
 
             <div class="col-12 mt-3">
               <button class="btn btn-success" type="submit">Save KYC Info</button>
@@ -114,7 +122,22 @@
     $('#workerId').val(workerId);
 
     function isPublicUrl(url) {
-      return typeof url === 'string' && (url.startsWith('/files/') || url.startsWith('https://') || url.startsWith('http://'));
+      return typeof url === 'string' && (
+        url.startsWith('/files/') ||
+        url.startsWith('https://') ||
+        url.startsWith('http://')
+      );
+    }
+
+    // Helper to map status to Bootstrap color
+    function getStatusColor(status) {
+      switch ((status || '').toUpperCase()) {
+        case 'APPROVED':
+        case 'VERIFIED': return 'success';
+        case 'REJECTED': return 'danger';
+        case 'PENDING':
+        default: return 'primary';
+      }
     }
 
     // Load existing worker info
@@ -125,12 +148,14 @@
           const worker = Array.isArray(data.content) ? data.content[0] : data;
           if (!worker) return;
 
+          // Populate basic fields
           $('#name').val(worker.name || '');
           $('#mobile').val(worker.mobile || '');
-          const maskedAadhaar = worker.kyc && worker.kyc.aadhaarNumber ? worker.kyc.aadhaarNumber : '';
+          const maskedAadhaar = worker.kyc?.aadhaarNumber || '';
           $('#aadhaarNumberMasked').val(maskedAadhaar);
-          $('#aadhaarNumber').val(maskedAadhaar || '');
+          $('#aadhaarNumber').val(maskedAadhaar);
 
+          // Show images if available
           if (isPublicUrl(worker.aadhaarFront)) {
             $('#aadhaarFrontPreview').html(`<img src="${worker.aadhaarFront}" class="image-preview" alt="Aadhaar Front" />`);
           }
@@ -140,6 +165,13 @@
           if (isPublicUrl(worker.workerPhoto)) {
             $('#workerPhotoPreview').html(`<img src="${worker.workerPhoto}" class="image-preview" alt="Worker Photo" />`);
           }
+
+          // Show KYC status - prefer nested status if available
+          const status = worker.kyc?.status || worker.kycStatus || 'N/A';
+          $('#kycStatusText')
+            .text(status)
+            .removeClass()
+            .addClass(`fw-bold text-${getStatusColor(status)}`);
         })
         .catch(() => {
           alert('Failed to load worker KYC info. Please login again.');
@@ -209,7 +241,11 @@
         headers: { 'Authorization': 'Bearer ' + token },
         success: function () {
           alert(`KYC ${action}d successfully`);
-          // Optionally refresh page or redirect
+          // Update status visually without reload
+          $('#kycStatusText')
+            .text(action.toUpperCase())
+            .removeClass()
+            .addClass(`fw-bold text-${getStatusColor(action)}`);
         },
         error: function (xhr) {
           alert(`Failed to ${action} KYC: ` + xhr.responseText);
@@ -218,5 +254,7 @@
     });
   });
 </script>
+
+
 </body>
 </html>

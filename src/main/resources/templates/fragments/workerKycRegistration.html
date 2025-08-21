@@ -27,6 +27,19 @@
           </div>
         </div>
 
+        <!-- Approve/Reject Section -->
+        <div class="mb-4">
+          <label for="kycAction" class="form-label">KYC Action</label>
+          <select id="kycAction" class="form-select w-auto d-inline-block">
+            <option value="">-- Select Action --</option>
+             <option value="pending">Pending</option>
+            <option value="reject">Reject</option>
+            <option value="approve">Approve</option>
+          </select>
+          <button id="submitKycAction" type="button" class="btn btn-primary ms-2">Submit Action</button>
+        </div>
+
+        <!-- Main KYC Form -->
         <form id="kycForm" enctype="multipart/form-data" class="needs-validation" novalidate>
           <input type="hidden" id="workerId" name="workerId" />
           <input type="hidden" id="adminId" name="adminId" value="1" />
@@ -91,6 +104,9 @@
 <script src="/admin-ui/js/auth.js"></script>
 <script src="/admin-ui/js/core/jquery-3.7.1.min.js"></script>
 <script src="/admin-ui/js/core/bootstrap.min.js"></script>
+<script src="/admin-ui/js/auth.js"></script>
+<script src="/admin-ui/js/core/jquery-3.7.1.min.js"></script>
+<script src="/admin-ui/js/core/bootstrap.min.js"></script>
 <script>
   $(document).ready(function() {
     const params = new URLSearchParams(window.location.search);
@@ -131,7 +147,7 @@
         });
     }
 
-    // Submit form
+    // Submit form for KYC update
     $('#kycForm').submit(function(event) {
       event.preventDefault();
 
@@ -155,15 +171,6 @@
       formData.append('workerPhoto', $('#workerPhoto')[0].files[0]);
       formData.append('adminId', $('#adminId').val());
 
-      // Debug log
-      for (let [k, v] of formData.entries()) {
-        if (v instanceof File) {
-          console.log(`${k}: name=${v.name}, size=${v.size}`);
-        } else {
-          console.log(`${k}: ${v}`);
-        }
-      }
-
       $.ajax({
         url: `/admin/worker/kyc/${$('#workerId').val()}`,
         type: 'POST',
@@ -177,6 +184,35 @@
         },
         error: function(xhr) {
           alert('Failed to update KYC: ' + xhr.responseText);
+        }
+      });
+    });
+
+    // Approve/Reject handler
+    $('#submitKycAction').on('click', function () {
+      const action = $('#kycAction').val();
+      const token = getToken();
+
+      if (!action) {
+        alert('Please select an action');
+        return;
+      }
+      if (!token) {
+        alert('Admin token missing, please login');
+        window.location.href = '/login.html';
+        return;
+      }
+
+      $.ajax({
+        url: `/admin/worker/kyc/${$('#workerId').val()}/${action}`,
+        type: 'POST',
+        headers: { 'Authorization': 'Bearer ' + token },
+        success: function () {
+          alert(`KYC ${action}d successfully`);
+          // Optionally refresh page or redirect
+        },
+        error: function (xhr) {
+          alert(`Failed to ${action} KYC: ` + xhr.responseText);
         }
       });
     });

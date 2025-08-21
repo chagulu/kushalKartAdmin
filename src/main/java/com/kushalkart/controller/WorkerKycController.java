@@ -160,9 +160,21 @@ public class WorkerKycController {
 
     private String saveFile(MultipartFile file) throws IOException {
         String filename = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-        file.transferTo(new java.io.File("/tmp/" + filename));
-        return "/tmp/" + filename; // In production, use a proper storage path
-    }
+        String uploadDir = "/Users/basantaswain/kushalKartAdmin/src/main/resources/static/uploads/";
+        
+        // Ensure the directory exists
+        java.io.File dir = new java.io.File(uploadDir);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        java.io.File destination = new java.io.File(uploadDir + filename);
+        file.transferTo(destination);
+
+        // Return the relative path for accessing via browser
+        return "/uploads/" + filename;
+}
+
 
     // Simple response wrapper
     static class ApiResponse {

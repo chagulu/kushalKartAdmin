@@ -58,6 +58,7 @@ public class SecurityConfig {
                     "/worker/kyc",
                     "/worker/listing",
                     "/admin-ui/**",
+                    "/uploads/**",
                     "/",
                     "/favicon.ico"
                 ).permitAll()

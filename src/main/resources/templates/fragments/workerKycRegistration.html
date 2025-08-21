@@ -116,20 +116,23 @@
 <script src="/admin-ui/js/core/jquery-3.7.1.min.js"></script>
 <script src="/admin-ui/js/core/bootstrap.min.js"></script>
 <script>
-  $(document).ready(function() {
+  $(document).ready(function () {
     const params = new URLSearchParams(window.location.search);
     const workerId = params.get('id');
     $('#workerId').val(workerId);
 
+    // --- Helpers ---
     function isPublicUrl(url) {
-      return typeof url === 'string' && (
-        url.startsWith('/files/') ||
-        url.startsWith('https://') ||
-        url.startsWith('http://')
-      );
-    }
+    return typeof url === 'string' && (
+      url.startsWith('/uploads/') ||
+      url.startsWith('/files/') ||
+      url.startsWith('/tmp/') ||
+      url.startsWith('https://') ||
+      url.startsWith('http://')
+    );
+  }
 
-    // Helper to map status to Bootstrap color
+
     function getStatusColor(status) {
       switch ((status || '').toUpperCase()) {
         case 'APPROVED':
@@ -140,33 +143,45 @@
       }
     }
 
-    // Load existing worker info
-    if (workerId) {
+    // --- Core data loader (can be reused after upload) ---
+    function loadWorkerData() {
+      if (!workerId) return;
+
       authFetch(`/admin/workers?id=${workerId}&page=0&size=1`)
         .then(resp => resp.json())
         .then(data => {
           const worker = Array.isArray(data.content) ? data.content[0] : data;
           if (!worker) return;
 
-          // Populate basic fields
+          // Basic fields
           $('#name').val(worker.name || '');
           $('#mobile').val(worker.mobile || '');
           const maskedAadhaar = worker.kyc?.aadhaarNumber || '';
           $('#aadhaarNumberMasked').val(maskedAadhaar);
           $('#aadhaarNumber').val(maskedAadhaar);
 
-          // Show images if available
+          // Aadhaar Front
           if (isPublicUrl(worker.aadhaarFront)) {
-            $('#aadhaarFrontPreview').html(`<img src="${worker.aadhaarFront}" class="image-preview" alt="Aadhaar Front" />`);
-          }
-          if (isPublicUrl(worker.aadhaarBack)) {
-            $('#aadhaarBackPreview').html(`<img src="${worker.aadhaarBack}" class="image-preview" alt="Aadhaar Back" />`);
-          }
-          if (isPublicUrl(worker.workerPhoto)) {
-            $('#workerPhotoPreview').html(`<img src="${worker.workerPhoto}" class="image-preview" alt="Worker Photo" />`);
+            $('#aadhaarFrontPreview').html(
+              `<img src="${worker.aadhaarFront}?t=${Date.now()}" class="image-preview" alt="Aadhaar Front" />`
+            );
           }
 
-          // Show KYC status - prefer nested status if available
+          // Aadhaar Back
+          if (isPublicUrl(worker.aadhaarBack)) {
+            $('#aadhaarBackPreview').html(
+              `<img src="${worker.aadhaarBack}?t=${Date.now()}" class="image-preview" alt="Aadhaar Back" />`
+            );
+          }
+
+          // Worker Photo
+          if (isPublicUrl(worker.workerPhoto)) {
+            $('#workerPhotoPreview').html(
+              `<img src="${worker.workerPhoto}?t=${Date.now()}" class="image-preview" alt="Worker Photo" />`
+            );
+          }
+
+          // KYC Status (prefer nested)
           const status = worker.kyc?.status || worker.kycStatus || 'N/A';
           $('#kycStatusText')
             .text(status)
@@ -179,8 +194,11 @@
         });
     }
 
-    // Submit form for KYC update
-    $('#kycForm').submit(function(event) {
+    // Initial load
+    loadWorkerData();
+
+    // --- Submit KYC form ---
+    $('#kycForm').submit(function (event) {
       event.preventDefault();
 
       if (!this.checkValidity()) {
@@ -210,17 +228,17 @@
         data: formData,
         processData: false,
         contentType: false,
-        success: function() {
+        success: function () {
           alert('KYC updated successfully');
-          window.location.href = `/worker/kyc?id=${$('#workerId').val()}`;
+          loadWorkerData(); // refresh previews & status right away
         },
-        error: function(xhr) {
+        error: function (xhr) {
           alert('Failed to update KYC: ' + xhr.responseText);
         }
       });
     });
 
-    // Approve/Reject handler
+    // --- Approve/Reject handler ---
     $('#submitKycAction').on('click', function () {
       const action = $('#kycAction').val();
       const token = getToken();
@@ -241,11 +259,7 @@
         headers: { 'Authorization': 'Bearer ' + token },
         success: function () {
           alert(`KYC ${action}d successfully`);
-          // Update status visually without reload
-          $('#kycStatusText')
-            .text(action.toUpperCase())
-            .removeClass()
-            .addClass(`fw-bold text-${getStatusColor(action)}`);
+          loadWorkerData(); // reload to reflect latest status & photos
         },
         error: function (xhr) {
           alert(`Failed to ${action} KYC: ` + xhr.responseText);
@@ -254,6 +268,7 @@
     });
   });
 </script>
+
 
 
 </body>

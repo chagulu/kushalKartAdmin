@@ -52,6 +52,7 @@ public class WorkerController {
         worker.setServiceCategoryId(request.getServiceCategoryId());
         worker.setBio(request.getBio());
         worker.setSkills(request.getSkillsJson());
+        worker.setCreatedAt(java.sql.Timestamp.valueOf(java.time.LocalDateTime.now()));
         worker.setRatePerHour(request.getRatePerHour());
         worker.setVerified(false);
         worker.setKycStatus(Worker.KycStatus.PENDING);

@@ -76,6 +76,14 @@ public Page<Worker> findWorkersForAdminPanel(
         return cb.and(predicates.toArray(new Predicate[0]));
     };
 
+    // Ensure default ordering by createdAt desc if no sort provided in pageable
+    if (pageable == null || !pageable.getSort().isSorted()) {
+        pageable = org.springframework.data.domain.PageRequest.of(
+            (pageable == null ? 0 : pageable.getPageNumber()),
+            (pageable == null ? 20 : pageable.getPageSize()),
+            org.springframework.data.domain.Sort.by(org.springframework.data.domain.Sort.Direction.DESC, "createdAt")
+        );
+    }
     return workerRepository.findAll(spec, pageable);
 }
 

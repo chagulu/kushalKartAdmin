@@ -17,9 +17,13 @@
 /Users/basantaswain/kushalKartAdmin/src/main/java/com/kushalkart/dto/WorkerAddressDTO.java
 /Users/basantaswain/kushalKartAdmin/src/main/java/com/kushalkart/dto/WorkerRegisterRequest.java
 /Users/basantaswain/kushalKartAdmin/src/main/java/com/kushalkart/entity/AdminUser.java
+/Users/basantaswain/kushalKartAdmin/src/main/java/com/kushalkart/entity/BalanceType.java
 /Users/basantaswain/kushalKartAdmin/src/main/java/com/kushalkart/entity/Booking.java
 /Users/basantaswain/kushalKartAdmin/src/main/java/com/kushalkart/entity/MasterTransactionHistory.java
+/Users/basantaswain/kushalKartAdmin/src/main/java/com/kushalkart/entity/PaymentType.java
 /Users/basantaswain/kushalKartAdmin/src/main/java/com/kushalkart/entity/Role.java
+/Users/basantaswain/kushalKartAdmin/src/main/java/com/kushalkart/entity/TransactionStatus.java
+/Users/basantaswain/kushalKartAdmin/src/main/java/com/kushalkart/entity/TransactionType.java
 /Users/basantaswain/kushalKartAdmin/src/main/java/com/kushalkart/entity/User.java
 /Users/basantaswain/kushalKartAdmin/src/main/java/com/kushalkart/entity/UserAddress.java
 /Users/basantaswain/kushalKartAdmin/src/main/java/com/kushalkart/entity/Worker.java

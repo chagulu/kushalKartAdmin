@@ -12,6 +12,7 @@ public class MasterTransactionHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // raw FK fields
     @Column(name = "user_id", nullable = false)
     private Long userId;
 
@@ -27,6 +28,35 @@ public class MasterTransactionHistory {
     @Column(name = "payment_type_id")
     private Long paymentTypeId;
 
+    @Column(name = "transaction_status_id", nullable = false)
+    private Long transactionStatusId;
+
+    // relationship mappings
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "booking_id", insertable = false, updatable = false)
+    private Booking booking;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "balance_type_id", insertable = false, updatable = false)
+    private BalanceType balanceType;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "transaction_type_id", insertable = false, updatable = false)
+    private TransactionType transactionType;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "payment_type_id", insertable = false, updatable = false)
+    private PaymentType paymentType;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "transaction_status_id", insertable = false, updatable = false)
+    private TransactionStatus transactionStatus;
+
+    // other columns
     @Column(name = "amount", precision = 10, scale = 2, nullable = false)
     private BigDecimal amount;
 
@@ -35,9 +65,6 @@ public class MasterTransactionHistory {
 
     @Column(name = "transaction_reference")
     private String transactionReference;
-
-    @Column(name = "transaction_status_id", nullable = false)
-    private Long transactionStatusId;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -49,7 +76,7 @@ public class MasterTransactionHistory {
         }
     }
 
-    // ===== Getters and Setters =====
+    // getters and setters for raw fields
 
     public Long getId() {
         return id;
@@ -99,6 +126,14 @@ public class MasterTransactionHistory {
         this.paymentTypeId = paymentTypeId;
     }
 
+    public Long getTransactionStatusId() {
+        return transactionStatusId;
+    }
+
+    public void setTransactionStatusId(Long transactionStatusId) {
+        this.transactionStatusId = transactionStatusId;
+    }
+
     public BigDecimal getAmount() {
         return amount;
     }
@@ -123,19 +158,37 @@ public class MasterTransactionHistory {
         this.transactionReference = transactionReference;
     }
 
-    public Long getTransactionStatusId() {
-        return transactionStatusId;
-    }
-
-    public void setTransactionStatusId(Long transactionStatusId) {
-        this.transactionStatusId = transactionStatusId;
-    }
-
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    // getters for relationships
+
+    public User getUser() {
+        return user;
+    }
+
+    public Booking getBooking() {
+        return booking;
+    }
+
+    public BalanceType getBalanceType() {
+        return balanceType;
+    }
+
+    public TransactionType getTransactionType() {
+        return transactionType;
+    }
+
+    public PaymentType getPaymentType() {
+        return paymentType;
+    }
+
+    public TransactionStatus getTransactionStatus() {
+        return transactionStatus;
     }
 }

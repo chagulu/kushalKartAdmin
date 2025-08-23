@@ -53,6 +53,7 @@ public class SecurityConfig {
                     "/admin/login",
                     "/admin/logout",
                     "/admin/workers",
+                    "/admin/worker/register",
                     "/admin/worker/kyc/update",
                     "/booking-listing",
                     "/worker/kyc",

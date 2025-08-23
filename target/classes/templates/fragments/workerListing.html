@@ -95,7 +95,60 @@
           </div>
         </div>
 
-        <!-- Filters (NO th:object for listing page) -->
+        <!-- Register Worker Button -->
+<div class="mb-3">
+  <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#registerWorkerModal">
+    + Register Worker
+  </button>
+</div>
+
+<!-- Register Worker Modal -->
+<div class="modal fade" id="registerWorkerModal" tabindex="-1" aria-labelledby="registerWorkerModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form id="registerWorkerForm">
+        <div class="modal-header">
+          <h5 class="modal-title" id="registerWorkerModalLabel">Register New Worker</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body row g-3">
+          <div class="col-md-6">
+            <input type="text" class="form-control" name="name" placeholder="Full Name" required />
+          </div>
+          <div class="col-md-6">
+            <input type="text" class="form-control" name="username" placeholder="Username" required />
+          </div>
+          <div class="col-md-6">
+            <input type="email" class="form-control" name="email" placeholder="Email" required />
+          </div>
+          <div class="col-md-6">
+            <input type="text" class="form-control" name="mobile" placeholder="Mobile Number" required />
+          </div>
+          <div class="col-md-6">
+            <input type="password" class="form-control" name="password" placeholder="Password" required />
+          </div>
+          <div class="col-md-6">
+            <input type="number" class="form-control" name="serviceCategoryId" placeholder="Service Category ID" required />
+          </div>
+          <div class="col-md-12">
+            <textarea class="form-control" name="bio" placeholder="Bio" rows="2"></textarea>
+          </div>
+          <div class="col-md-12">
+            <input type="text" class="form-control" name="skillsJson" placeholder='Skills (e.g. ["Wiring","Repair"])' />
+          </div>
+          <div class="col-md-6">
+            <input type="number" class="form-control" name="ratePerHour" placeholder="Rate Per Hour" required />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Register</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Filters (NO th:object for listing page) -->
         <div class="row mb-3 g-2">
           <div class="col-md-2">
             <select class="form-control" id="kycStatus">
@@ -274,6 +327,22 @@
     $('#nextPage').prop('disabled', last);
   }
 
+  function getAuthToken() {
+    let token = null;
+    try {
+      token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+    } catch (e) {}
+    if (!token) {
+      const m = document.cookie.match(/(?:^|; )(?:authToken|token|jwt)=([^;]+)/);
+      if (m) token = decodeURIComponent(m[1]);
+    }
+    if (!token && window && window.TOKEN) token = window.TOKEN;
+    if (!token && window && window.app && window.app.token) token = window.app.token;
+    if (!token) return null;
+    token = token.replace(/^Bearer\s+/i, '').trim();
+    return token || null;
+  }
+
   $(document).ready(function() {
     fetchWorkers();
 
@@ -293,8 +362,51 @@
         fetchWorkers(page + 1);
       }
     });
+
+    $('#registerWorkerForm').submit(function(e) {
+      e.preventDefault();
+      const formData = Object.fromEntries(new FormData(this).entries());
+      const token = getAuthToken();
+      const headers = {};
+
+      if (token) {
+        if (token.split('.').length === 3) {
+          headers['Authorization'] = 'Bearer ' + token;
+        } else {
+          console.warn('Found token but it does not look like a JWT. Skipping Authorization header.');
+        }
+      } else {
+        console.warn('No auth token found. Sending request without Authorization header.');
+      }
+
+      $.ajax({
+        url: '/admin/worker/register',
+        type: 'POST',
+        contentType: 'application/json',
+        headers: headers,
+        data: JSON.stringify(formData),
+        success: function(response) {
+          if (response && response.status === 'success') {
+            alert('Worker registered successfully!');
+            window.location.href = '/worker/listing';
+          } else {
+            alert((response && response.message) || 'Registration failed.');
+          }
+        },
+        error: function(xhr) {
+          let err = 'Something went wrong.';
+          try {
+            const json = xhr.responseJSON || JSON.parse(xhr.responseText || '{}');
+            err = json.message || err;
+          } catch (e) {}
+          alert(err);
+        }
+      });
+    });
   });
 </script>
+
+
 
 </body>
 </html>

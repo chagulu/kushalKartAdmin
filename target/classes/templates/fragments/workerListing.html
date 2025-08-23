@@ -106,51 +106,161 @@
         </div>
 
 <!-- Register Worker Modal -->
-<div class="modal fade" id="registerWorkerModal" tabindex="-1" aria-labelledby="registerWorkerModalLabel" aria-hidden="true">
+<div class="modal fade" id="registerWorkerModal" tabindex="-1" aria-labelledby="registerWorkerModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <form id="registerWorkerForm">
+        <input type="hidden" name="id" id="workerId" />
         <div class="modal-header">
           <h5 class="modal-title" id="registerWorkerModalLabel">Register New Worker</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body row g-3">
           <div class="col-md-6">
-            <input type="text" class="form-control" name="name" placeholder="Full Name" required />
+            <input type="text" class="form-control" name="name" id="workerName" placeholder="Full Name" required />
           </div>
           <div class="col-md-6">
-            <input type="text" class="form-control" name="username" placeholder="Username" required />
+            <input type="text" class="form-control" name="username" id="workerUsername" placeholder="Username" required />
           </div>
           <div class="col-md-6">
-            <input type="email" class="form-control" name="email" placeholder="Email" required />
+            <input type="email" class="form-control" name="email" id="workerEmail" placeholder="Email" required />
           </div>
           <div class="col-md-6">
-            <input type="text" class="form-control" name="mobile" placeholder="Mobile Number" required />
+            <input type="text" class="form-control" name="mobile" id="workerMobile" placeholder="Mobile Number" required />
           </div>
           <div class="col-md-6">
-            <input type="password" class="form-control" name="password" placeholder="Password" required />
+            <input type="password" class="form-control" name="password" id="workerPassword" placeholder="Password" />
           </div>
           <div class="col-md-6">
-            <input type="number" class="form-control" name="serviceCategoryId" placeholder="Service Category ID" required />
+            <input type="number" class="form-control" name="serviceCategoryId" id="workerServiceCategoryId" placeholder="Service Category ID" required />
           </div>
           <div class="col-md-12">
-            <textarea class="form-control" name="bio" placeholder="Bio" rows="2"></textarea>
+            <textarea class="form-control" name="bio" id="workerBio" placeholder="Bio" rows="2"></textarea>
           </div>
           <div class="col-md-12">
-            <input type="text" class="form-control" name="skillsJson" placeholder='Skills (e.g. ["Wiring","Repair"])' />
+            <input type="text" class="form-control" name="skillsJson" id="workerSkillsJson" placeholder='Skills (e.g. ["Wiring","Repair"])' />
           </div>
           <div class="col-md-6">
-            <input type="number" class="form-control" name="ratePerHour" placeholder="Rate Per Hour" required />
+            <input type="number" class="form-control" name="ratePerHour" id="workerRatePerHour" placeholder="Rate Per Hour" required />
           </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Register</button>
+          <button type="submit" id="registerSubmitBtn" class="btn btn-primary">Register</button>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
         </div>
       </form>
     </div>
   </div>
 </div>
+
+<script>
+  (function() {
+    // Local token retrieval (mirrors main page logic)
+    function getAuthTokenLocal() {
+      let token = null;
+      try {
+        token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+      } catch (e) {}
+      if (!token) {
+        const m = document.cookie.match(/(?:^|; )(?:authToken|token|jwt)=([^;]+)/);
+        if (m) token = decodeURIComponent(m[1]);
+      }
+      if (!token && window && window.TOKEN) token = window.TOKEN;
+      if (!token && window && window.app && window.app.token) token = window.app.token;
+      if (!token) return null;
+      token = token.replace(/^Bearer\s+/i, '').trim();
+      return token || null;
+    }
+
+    // Fill the modal form with worker data
+    function fillWorkerForm(worker) {
+      if (!worker) return;
+      $('#workerId').val(worker.id || '');
+      $('#workerName').val(worker.name || '');
+      $('#workerUsername').val(worker.username || '');
+      $('#workerEmail').val(worker.email || '');
+      $('#workerMobile').val(worker.mobile || '');
+      // Do not prefill password for security
+      $('#workerPassword').val('');
+      $('#workerServiceCategoryId').val(worker.serviceCategoryId || worker.serviceCategory || '');
+      $('#workerBio').val(worker.bio || '');
+      // If skills come as array, stringify; if already string, set directly
+      if (Array.isArray(worker.skills)) {
+        $('#workerSkillsJson').val(JSON.stringify(worker.skills));
+      } else {
+        $('#workerSkillsJson').val(worker.skillsJson || worker.skills || '');
+      }
+      $('#workerRatePerHour').val(worker.ratePerHour || '');
+      // update modal title and submit button
+      $('#registerWorkerModalLabel').text(worker.id ? 'Edit Worker' : 'Register New Worker');
+      $('#registerSubmitBtn').text(worker.id ? 'Save Changes' : 'Register');
+    }
+
+    // Extract worker object from various possible response shapes
+    function extractWorkerFromResponse(data) {
+      if (!data) return null;
+      if (Array.isArray(data) && data.length) return data[0];
+      if (data.content && Array.isArray(data.content) && data.content.length) return data.content[0];
+      if (data.worker) return data.worker;
+      // If response looks like the worker itself
+      if (data.id || data.username) return data;
+      return null;
+    }
+
+    // Fetch worker by id and open modal prefilled
+    function openEditModal(workerId) {
+      if (!workerId) return;
+      const token = getAuthTokenLocal();
+      const headers = {};
+      if (token) headers['Authorization'] = 'Bearer ' + token;
+
+      $.ajax({
+        url: `/admin/workers?id=${encodeURIComponent(workerId)}`,
+        type: 'GET',
+        headers: headers,
+        success: function(data) {
+          const w = extractWorkerFromResponse(data);
+          if (!w) {
+            alert('Worker data not found.');
+            return;
+          }
+          fillWorkerForm(w);
+          // Show Bootstrap modal
+          const modalEl = document.getElementById('registerWorkerModal');
+          if (window.bootstrap && bootstrap.Modal) {
+            const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+            modal.show();
+          } else {
+            // fallback to jQuery if bootstrap not available yet
+            $('#registerWorkerModal').modal('show');
+          }
+        },
+        error: function() {
+          alert('Failed to fetch worker details.');
+        }
+      });
+    }
+
+    // Intercept clicks on .edit-btn early using capture phase to prevent existing handlers (which redirect)
+    document.addEventListener('click', function(ev) {
+      const btn = ev.target.closest && ev.target.closest('.edit-btn');
+      if (!btn) return;
+      ev.preventDefault();
+      ev.stopPropagation();
+      // read data-id attribute (works with elements created dynamically)
+      const workerId = btn.getAttribute('data-id') || btn.dataset.id;
+      openEditModal(workerId);
+    }, true);
+
+    // When modal is hidden, reset to Register mode
+    document.getElementById('registerWorkerModal').addEventListener('hidden.bs.modal', function() {
+      $('#registerWorkerForm')[0].reset();
+      $('#workerId').val('');
+      $('#registerWorkerModalLabel').text('Register New Worker');
+      $('#registerSubmitBtn').text('Register');
+    });
+  })();
+</script>
 <!-- Filters (NO th:object for listing page) -->
         <div class="row mb-3 g-2">
           <div class="col-md-2">

@@ -56,7 +56,7 @@ function authFetch(url, options = {}) {
         if (response.status === 403) {
             // Token may be expired or unauthorized — redirect to login page
             clearAuth();
-            window.location.href = '/login.html';  // Adjust to your login page path
+            window.location.href = '/admin/login';  // Adjust to your login page path
             return Promise.reject(new Error('Unauthorized - Redirecting to login'));
         }
         return response;

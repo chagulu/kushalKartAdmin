@@ -41,4 +41,9 @@ public class DashboardViewController {
     public String workerListing() {
         return "fragments/workerListing";
     }
+
+    @GetMapping("/transation-listing")
+    public String transactionListing() {
+        return "fragments/transcationListing";
+    }
 }

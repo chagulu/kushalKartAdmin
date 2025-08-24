@@ -24,6 +24,44 @@ function getUser() {
 }
 
 // ===== Clear auth info (logout) =====
+document.addEventListener('DOMContentLoaded', function () {
+    var logout = document.getElementById('logoutLink');
+    if (!logout) return;
+    logout.addEventListener('click', function (e) {
+        e.preventDefault();
+        // Try multiple storage places and cookies
+        var token = localStorage.getItem(TOKEN_KEY) || sessionStorage.getItem(TOKEN_KEY) || (function () {
+            var m = document.cookie.match(new RegExp('(?:^|; )' + encodeURIComponent(TOKEN_KEY) + '=([^;]+)'));
+            if (m) return decodeURIComponent(m[1]);
+            m = document.cookie.match(/(?:^|; )token=([^;]+)/);
+            return m ? decodeURIComponent(m[1]) : null;
+        })();
+        if (!token) { clearAuth(); window.location.href = '/admin/login'; return; }
+        if (!token.startsWith('Bearer')) token = 'Bearer ' + token;
+        fetch('/admin/logout', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({ token: token })
+        }).then(function (res) {
+            if (res.ok) {
+                // Clear auth from storages and cookies
+                clearAuth();
+                sessionStorage.removeItem(TOKEN_KEY);
+                sessionStorage.removeItem(USER_KEY);
+                localStorage.removeItem('token');
+                sessionStorage.removeItem('token');
+                document.cookie = encodeURIComponent(TOKEN_KEY) + '=;max-age=0;path=/';
+                document.cookie = 'token=;max-age=0;path=/';
+                window.location.href = '/admin/login';
+            } else {
+                return res.text().then(function (t) { throw new Error(t || res.statusText); });
+            }
+        }).catch(function (err) {
+            console.error('Logout failed', err);
+            alert('Logout failed.');
+        });
+    }, false);
+});
 function clearAuth() {
     localStorage.removeItem(TOKEN_KEY);
     localStorage.removeItem(USER_KEY);
